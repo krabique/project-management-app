@@ -35,8 +35,15 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# -- My -- start -----------------------------------
+# For logins
 gem 'devise'
+# For cute notices
 gem 'toastr-rails'
+# For bootstrap
+gem 'bootstrap'
+# -- My -- end -------------------------------------
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
