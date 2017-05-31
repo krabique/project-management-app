@@ -42,6 +42,9 @@ gem 'devise'
 gem 'toastr-rails'
 # For bootstrap
 gem 'bootstrap'
+# For admin users
+gem 'remotipart', github: 'mshibuya/remotipart'
+gem 'rails_admin', '>= 1.0.0.rc'
 # -- My -- end -------------------------------------
 
 
