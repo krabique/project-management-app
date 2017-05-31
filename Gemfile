@@ -45,6 +45,8 @@ gem 'bootstrap'
 # For admin users
 gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', '>= 1.0.0.rc'
+# For authorization
+gem 'cancancan'
 # -- My -- end -------------------------------------
 
 

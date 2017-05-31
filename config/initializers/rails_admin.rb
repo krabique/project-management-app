@@ -9,6 +9,7 @@ RailsAdmin.config do |config|
   # config.current_user_method(&:current_user)
   
   # -- My -- start -----------------------------------------------------
+  config.authorize_with :cancan
   ## == Devise ==
   config.authenticate_with do
     warden.authenticate! scope: :user
