@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601132201) do
+ActiveRecord::Schema.define(version: 20170601173152) do
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
@@ -37,11 +37,15 @@ ActiveRecord::Schema.define(version: 20170601132201) do
     t.boolean  "superadmin_role",        default: false
     t.boolean  "manager_role",           default: false
     t.boolean  "user_role",              default: true
-    t.integer  "project_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["project_id"], name: "index_users_on_project_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "users", "projects"
+  create_table "users_projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_users_projects_on_project_id", using: :btree
+    t.index ["user_id"], name: "index_users_projects_on_user_id", using: :btree
+  end
+
 end

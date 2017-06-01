@@ -37,7 +37,6 @@ class Ability
       can :dashboard              # allow access to dashboard
     end
     if user.manager_role?
-      can :manage, User
       can :manage, Project
       
     end

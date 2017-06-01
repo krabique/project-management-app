@@ -34,7 +34,7 @@
 
 <%= link_to 'Edit', edit_project_path(@project) %>
 
-<% if current_user.project_id == @project.id %>
+<% if current_user.projects.find_by_id(@project.id) %>
   <p>
 	  <strong>the condition here is:</strong> current_user.project_id == @project.id
 	  <p><em>Only Harry Potter can see this, 'cause he's a wizard!</em></p>

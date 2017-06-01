@@ -10,8 +10,8 @@ class ProjectsController < ApplicationController
     #rescue ActiveRecord::RecordNotFound
     #redirect_to @project, notice: "You cannot edit this event."
     
-    unless (can? :manage, Project) || current_user.project_id == @project.id
-      redirect_to @project, notice: "You cannot edit this event."
+    unless (can? :manage, Project) || current_user.projects.find_by_id(@project.id)
+      redirect_to @project, notice: "You cannot edit this project."
     end
       
   end
