@@ -3,6 +3,9 @@ class HomeController < ApplicationController
   
   def index
     @projects = Project.all
+    if current_user
+      @my_projects = current_user.projects
+    end
   end
   
 end
