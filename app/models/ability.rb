@@ -38,6 +38,7 @@ class Ability
     end
     if user.manager_role?
       can :manage, User
+      can :manage, Project
     end
     
   end

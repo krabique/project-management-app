@@ -13,3 +13,23 @@
   <strong>Developers IDs:</strong>
   <%= unless @project.developers.empty? then @project.developers else 'none' end %>
 </p>
+
+<% if current_user.superadmin_role? || current_user.manager_role? %>
+  <p>
+    <strong>the condition here is:</strong> if current_user.superadmin_role? || current_user.manager_role?
+  </p>
+<% end %>
+
+<% if can? :manage, User %>
+  <p>
+	  <strong>the condition here is:</strong> if can? :manage, User
+	</p>
+<% end %>
+
+<% if can? :manage, Project %>
+  <p>
+	  <strong>the condition here is:</strong> if can? :manage, Project
+	</p>
+<% end %>
+
+<%= link_to 'Edit', edit_project_path(@project) %>
