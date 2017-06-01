@@ -1,0 +1,15 @@
+<h1><%= @project.title %></h1>
+
+<p>
+  <%= @project.description %>
+</p>
+
+<p>
+  <strong>Managers IDs:</strong>
+  <%= unless @project.managers.empty? then @project.managers else 'none' end %>
+</p>
+
+<p>
+  <strong>Developers IDs:</strong>
+  <%= unless @project.developers.empty? then @project.developers else 'none' end %>
+</p>

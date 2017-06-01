@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :projects
+  #get 'projects/show'
+
+  #get 'project/show'
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: {
       sessions: 'users/sessions',
