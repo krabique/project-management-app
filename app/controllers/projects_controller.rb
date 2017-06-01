@@ -5,6 +5,15 @@ class ProjectsController < ApplicationController
   end
   
   def edit
+    #@project = current_user.projects.find(params[:id])
+    #@project.users.find(params[:id])
+    #rescue ActiveRecord::RecordNotFound
+    #redirect_to @project, notice: "You cannot edit this event."
+    
+    unless (can? :manage, Project) || current_user.project_id == @project.id
+      redirect_to @project, notice: "You cannot edit this event."
+    end
+      
   end
   
   def update
