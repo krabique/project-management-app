@@ -40,3 +40,12 @@
 	  <p><em>Only Harry Potter can see this, 'cause he's a wizard!</em></p>
 	</p>
 <% end %>
+
+<% unless @project.users.empty? %>
+  <h3 class="text-center">This project's developers</h3>
+  <div class="list-group projects-list">
+    <% @project.users.each do |user| %>
+      <%= link_to(user.email, root_path, :class => "list-group-item") %>
+    <% end %>
+  </div>
+<% end %>
