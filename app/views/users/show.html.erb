@@ -1,0 +1,14 @@
+<h3><%= @user.email %> profile</h3>
+<p><strong>email:</strong> <%= @user.email %></p>
+<p><strong>member since:</strong> <%= @user.created_at %></p>
+<p><strong>last seen:</strong> <%= @user.last_sign_in_at %></p>
+<p>
+  <strong>role:</strong> 
+  <% if @user.superadmin_role %>
+    Administrator - "I am the Alpha and the Omega"
+  <% elsif @user.manager_role %>
+    Manager - "Work, niggers, the sun is still high!"
+  <% else %>
+    Developer - "I humbly obey..."
+  <% end %>
+</p>
