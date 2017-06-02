@@ -4,17 +4,6 @@
   <%= @project.description %>
 </p>
 
-<p>
-  <strong>Managers IDs:</strong>
-  <%= unless @project.managers.empty? then @project.managers else 'none' end %>
-</p>
-
-<p>
-  <strong>Developers IDs:</strong>
-  <%= unless @project.developers.empty? then @project.developers 
-    else 'none' end %>
-</p>
-
 <% if current_user.superadmin_role? || current_user.manager_role? %>
   <p>
     <strong>the condition here is:</strong> if current_user.superadmin_role? || 
