@@ -1,4 +1,4 @@
-<h3><%= @user.email %> profile</h3>
+<h3><%= @user.name %>'s profile</h3>
 <p><strong>email:</strong> <%= @user.email %></p>
 <p><strong>member since:</strong> <%= @user.created_at %></p>
 <p><strong>last seen:</strong> <%= @user.last_sign_in_at %></p>
@@ -18,12 +18,12 @@
 <% end %>
 
 <% unless @user.projects.empty? %>
-  <h3 class="text-center"><%= @user.email %>'s projects</h3>
+  <h3 class="text-center"><%= @user.name %>'s projects</h3>
   <div class="list-group projects-list">
     <% @user.projects.each do |project| %>
       <%= link_to(project.title, project, :class => "list-group-item") %>
     <% end %>
   </div>
 <% else %>
-  <h4 class="text-center"><%= @user.email %> is very lazy and has no projects :P</h4>
+  <h4 class="text-center"><%= @user.name %> is very lazy and has no projects :P</h4>
 <% end %>
