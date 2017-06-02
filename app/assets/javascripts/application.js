@@ -16,3 +16,22 @@
 //= require toastr
 //= require turbolinks
 //= require_tree .
+
+$(document).ready( function(){
+ 
+    $('#MasterSelectBox').pairMaster();
+    $('#btnAdd').click(function(){
+        $('#MasterSelectBox').addSelected('#PairedSelectBox');
+        e.preventDefault();
+    });
+    $('#btnRemove').click(function(){
+        $('#PairedSelectBox').removeSelected('#MasterSelectBox');
+        e.preventDefault();
+    });
+    
+    $('.btn').onClick(function(e){
+        e.preventDefault();
+    });
+});
+
+
