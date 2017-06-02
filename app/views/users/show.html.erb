@@ -1,5 +1,5 @@
 <h3><%= @user.name %>'s profile</h3>
-<%= image_tag(current_user.avatar.url(:medium), 
+<%= image_tag(@user.avatar.url(:medium), 
   :class => "user-medium-image") %>
 <p><strong>email:</strong> <%= @user.email %></p>
 <p><strong>member since:</strong> <%= @user.created_at %></p>
