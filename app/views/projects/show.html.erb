@@ -49,7 +49,7 @@
   <div class="list-group projects-list">
     <% @project.users.each do |user| %>
       <div class="list-group-item">
-        <%= image_tag(current_user.avatar.url(:thumb), 
+        <%= image_tag(user.avatar.url(:thumb), 
           :class => "user-thumb-image user-list") %>
         <%= link_to(user.name + " - " + user.email, user) %>
       </div>
