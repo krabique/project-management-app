@@ -47,6 +47,8 @@ gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', '>= 1.0.0.rc'
 # For authorization
 gem 'cancancan'
+# For users' avatars
+gem 'paperclip', '~> 5.1'
 # -- My -- end -------------------------------------
 
 

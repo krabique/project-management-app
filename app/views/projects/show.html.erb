@@ -48,8 +48,11 @@
   <h3 class="text-center">This project's developers</h3>
   <div class="list-group projects-list">
     <% @project.users.each do |user| %>
-      <%= link_to(user.name + " - " + user.email, user, 
-        :class => "list-group-item") %>
+      <div class="list-group-item">
+        <%= image_tag(current_user.avatar.url(:thumb), 
+          :class => "user-thumb-image user-list") %>
+        <%= link_to(user.name + " - " + user.email, user) %>
+      </div>
     <% end %>
   </div>
 <% else %>
