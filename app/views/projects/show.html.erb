@@ -4,6 +4,10 @@
   <%= @project.description %>
 </p>
 
+<p>
+  Tags: <%= tag_links_for_project(@project) %>
+</p>
+
 <% if current_user.superadmin_role? || current_user.manager_role? %>
   <p>
     <strong>the condition here is:</strong> if current_user.superadmin_role? || 
@@ -48,3 +52,5 @@
   <h4 class="text-center">Everyone hates this project, 
     so it has no developers...</h4>
 <% end %>
+
+<%= link_to 'Back to all projects', projects_path %>

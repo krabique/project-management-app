@@ -49,6 +49,8 @@ gem 'rails_admin', '>= 1.0.0.rc'
 gem 'cancancan'
 # For users' avatars
 gem 'paperclip', '~> 5.1'
+# For tags
+gem 'acts-as-taggable-on', '~> 5.0'
 # -- My -- end -------------------------------------
 
 

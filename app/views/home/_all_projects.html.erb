@@ -1,4 +1,4 @@
-<h3 class="text-center">All Projects</h3>
+<h3 class="text-center"><%= link_to 'All Projects', projects_path %></h3>
 <div class="list-group projects-list">
   <% @projects.each do |project| %>
     <%= link_to(project.title, project, :class => "list-group-item") %>

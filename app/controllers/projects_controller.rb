@@ -1,6 +1,14 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update]
   
+  def index
+    if params[:tag]
+      @projects = Project.tagged_with(params[:tag])
+    else
+      @projects = Project.all
+    end
+  end
+  
   def show
   end
   
@@ -28,6 +36,6 @@ class ProjectsController < ApplicationController
   end
   
   def project_params
-    params.require(:project).permit(:title, :description)
+    params.require(:project).permit(:title, :description, :tag_list)
   end
 end
