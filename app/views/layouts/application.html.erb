@@ -37,24 +37,33 @@
         <ul class="navbar-nav mr-auto">
           <% if user_signed_in? %>
             <li class="nav-item active">
-              <%= image_tag(current_user.avatar.url(:thumb), 
-                :class => "user-thumb-image") %>
+              <%= link_to('All Projects', projects_path, 
+                :class => "nav-link") %>
+            </li>
+            <% if current_user.superadmin_role? || current_user.manager_role? %>
+              <li class="nav-item active">
+                <%= link_to('Admin Dashboard', rails_admin_path, 
+                  :class => "nav-link") %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+            <li class="nav-item active">
+              <%= link_to('Logout', destroy_user_session_path, 
+                :method => :delete, :class => "nav-link") %>
             </li>
             <li class="nav-item active">
               <%= link_to(current_user.name, current_user, 
                 :class => "nav-link") %>
             </li>
             <li class="nav-item active">
-              <%= link_to('Logout', destroy_user_session_path, 
-                :method => :delete, :class => "nav-link") %>
+              <%= image_tag(current_user.avatar.url(:thumb), 
+                :class => "user-thumb-image") %>
             </li>
-            <% if current_user.superadmin_role? || current_user.manager_role? %>
-            <li class="nav-item active">
-              <%= link_to('Admin Dashboard', rails_admin_path, 
-                :class => "nav-link") %>
-            </li>
-            <% end %>
-          <% else %>
+        <% else %>
             <li class="nav-item active">
               <%= link_to('Login', new_user_session_path, 
                 :class => "nav-link") %>
@@ -63,14 +72,16 @@
               <%= link_to('Register', new_user_registration_path, 
                 :class => "nav-link")  %>
             </li>
-          <% end %>
+        <% end %>
         </ul>
+        <!--
         <form class="form-inline my-2 my-md-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
             Search
           </button>
         </form>
+        -->
       </div>
     </div>
   </nav>

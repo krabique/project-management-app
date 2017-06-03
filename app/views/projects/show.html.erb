@@ -44,7 +44,7 @@
       <div class="list-group-item">
         <%= image_tag(user.avatar.url(:thumb), 
           :class => "user-thumb-image user-list") %>
-        <%= link_to(user.name + " - " + user.email, user) %>
+        <%= link_to(user.name, user) %>
       </div>
     <% end %>
   </div>
