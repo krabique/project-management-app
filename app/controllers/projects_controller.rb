@@ -32,9 +32,13 @@ class ProjectsController < ApplicationController
   end
   
   def project_params
-    params.require(:project).permit(:title, :description, :tag_list, 
-      { :user_ids => [] }
-    )
+    if can? :manage, Project
+      params.require(:project).permit(:title, :description, :tag_list, 
+        { :user_ids => [] } 
+      )
+    else
+      params.require(:project).permit(:title, :description, :tag_list)
+    end
   end
   
   def update_respond_formatted(format)
