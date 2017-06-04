@@ -19,6 +19,7 @@ class ProjectsController < ApplicationController
   end
   
   def update
+    params[:project][:user_ids] ||= []
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
@@ -36,6 +37,8 @@ class ProjectsController < ApplicationController
   end
   
   def project_params
-    params.require(:project).permit(:title, :description, :tag_list)
+    params.require(:project).permit(:title, :description, :tag_list, 
+      { :user_ids => [] }
+    )
   end
 end

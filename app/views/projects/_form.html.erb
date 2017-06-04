@@ -13,21 +13,28 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :tag_list, "Tags (separated by commas)" %>
-    <%= f.text_field :tag_list, value: project.tag_list.to_s %>
-  </div>
-
-  <div class="field">
-    <%= f.label :title %>
+    <strong><%= f.label :title %></strong>
     <%= f.text_field :title %>
   </div>
 
   <div class="field">
-    <%= f.label :description %>
+    <strong><%= f.label :description %></strong>
     <%= f.text_area :description %>
   </div>
   
-
+  <div class="field">
+    <strong><%= f.label :tag_list, "Tags (separated by commas)" %></strong>
+    <%= f.text_field :tag_list, value: project.tag_list.to_s %>
+  </div>
+  <p><strong>This project's users:</strong>
+  <% User.all.each do |user| %>
+    <div>
+      <%= check_box_tag "project[user_ids][]", user.id, 
+        project.users.include?(user) %>
+      <%= user.name %>
+    </div>
+  <% end %>
+  </p>
   <div class="actions">
     <%= f.submit %>
   </div>
