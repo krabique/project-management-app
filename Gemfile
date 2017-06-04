@@ -51,6 +51,8 @@ gem 'cancancan'
 gem 'paperclip', '~> 5.1'
 # For tags
 gem 'acts-as-taggable-on', '~> 5.0'
+# For files cloud
+gem 'cloudinary'
 # -- My -- end -------------------------------------
 
 

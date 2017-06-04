@@ -23,6 +23,10 @@
   </div>
   
   <div class="field">
+    <%= cl_image_upload_tag(:image_id, :crop => :limit, :width => 1000, :height => 1000) %>
+  </div>
+  
+  <div class="field">
     <strong><%= f.label :tag_list, "Tags (separated by commas)" %></strong>
     <%= f.text_field :tag_list, value: project.tag_list.to_s %>
   </div>
@@ -40,4 +44,8 @@
       <%= f.submit %>
     </div>
   <% end %>
+<% end %>
+
+<%= form_tag(:method => :post) do  %>
+  
 <% end %>

@@ -54,3 +54,11 @@
 <% end %>
 
 <%= link_to 'Back to all projects', projects_path %>
+<% unless @project.documents.empty? %>
+  <% @project.documents.each do |document| %>
+    <%= cl_image_tag(document.url, :crop => :fill, :width => 120, 
+      :height => 80) %>
+  <% end %>
+<% else %>
+  <h4 class="text-center">Someone stole this project's documents!</h4>
+<% end %>

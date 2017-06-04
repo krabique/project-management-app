@@ -15,23 +15,13 @@
 //= require jquery_ujs
 //= require toastr
 //= require turbolinks
+//= require cloudinary
 //= require_tree .
 
 $(document).ready( function(){
- 
-    $('#MasterSelectBox').pairMaster();
-    $('#btnAdd').click(function(){
-        $('#MasterSelectBox').addSelected('#PairedSelectBox');
-        e.preventDefault();
-    });
-    $('#btnRemove').click(function(){
-        $('#PairedSelectBox').removeSelected('#MasterSelectBox');
-        e.preventDefault();
-    });
-    
-    $('.btn').onClick(function(e){
-        e.preventDefault();
-    });
+  $(function() {
+    if($.fn.cloudinary_fileupload !== undefined) {
+      $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
+    }
+  });    
 });
-
-

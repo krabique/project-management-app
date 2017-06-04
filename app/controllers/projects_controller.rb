@@ -20,6 +20,12 @@ class ProjectsController < ApplicationController
   end
   
   def update
+    if params[:image_id].present?
+      preloaded = Cloudinary::PreloadedFile.new(params[:image_id])         
+      raise "Invalid upload signature" if !preloaded.valid?
+      @project.documents.create( { url: preloaded.identifier } )
+    end
+    
     params[:project][:user_ids] ||= []
     respond_to do |format|
       update_respond_formatted(format)
@@ -27,6 +33,7 @@ class ProjectsController < ApplicationController
   end
   
   private
+  
   def set_project
     @project = Project.find(params[:id])
   end
