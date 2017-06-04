@@ -13,7 +13,8 @@ class ProjectsController < ApplicationController
   end
   
   def edit
-    unless (can? :manage, Project) || current_user.projects.find_by_id(@project.id)
+    unless (can? :manage, Project) || 
+      current_user.projects.find_by_id(@project.id)
       redirect_to @project, notice: "You cannot edit this project."
     end
   end
@@ -21,13 +22,7 @@ class ProjectsController < ApplicationController
   def update
     params[:project][:user_ids] ||= []
     respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+      update_respond_formatted(format)
     end
   end
   
@@ -40,5 +35,25 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:title, :description, :tag_list, 
       { :user_ids => [] }
     )
+  end
+  
+  def update_respond_formatted(format)
+    if @project.update(project_params)
+      update_respond_formatted_for_successful(@project, format)
+    else
+      update_respond_formatted_for_unchanged(@project, format)
+    end
+  end
+  
+  def update_respond_formatted_for_successful(project, format)
+    format.html { redirect_to project, 
+      notice: 'Project was successfully updated.' }
+    format.json { render :show, status: :ok, location: project }
+  end
+  
+  def update_respond_formatted_for_unchanged(project, format)
+    format.html { render :edit }
+    format.json { render json: project.errors, 
+      status: :unprocessable_entity }
   end
 end
