@@ -1,7 +1,8 @@
 <%= form_for(project) do |f| %>
   <% if project.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+      <h2><%= pluralize(project.errors.count, "error") %> 
+        prohibited this project from being saved:</h2>
 
       <ul>
       <% project.errors.full_messages.each do |message| %>
@@ -13,7 +14,7 @@
 
   <div class="field">
     <%= f.label :tag_list, "Tags (separated by commas)" %>
-    <%= f.text_field :tag_list %>
+    <%= f.text_field :tag_list, value: project.tag_list.to_s %>
   </div>
 
   <div class="field">
