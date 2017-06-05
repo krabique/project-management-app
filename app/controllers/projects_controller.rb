@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
     if params[:image_id].present?
       preloaded = Cloudinary::PreloadedFile.new(params[:image_id])         
       raise "Invalid upload signature" if !preloaded.valid?
-      @project.documents.create( { url: preloaded.identifier } )
+      @project.documents.create( { cloudinary_uri: preloaded.identifier } )
     end
     
     params[:project][:user_ids] ||= []

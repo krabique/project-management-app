@@ -55,10 +55,52 @@
 
 <%= link_to 'Back to all projects', projects_path %>
 <% unless @project.documents.empty? %>
-  <% @project.documents.each do |document| %>
-    <%= cl_image_tag(document.url, :crop => :fill, :width => 120, 
-      :height => 80) %>
-  <% end %>
+  <h3 class="text-center">This project's documents</h3>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>representation</th>
+        <th>title</th>
+        <th>created by</th>
+        <th>last update by</th>
+        <th>controls</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.documents.each do |document| %>
+        <tr>
+          <td><%= cl_image_tag(document.cloudinary_uri, :crop => :fill, :width => 120,
+            :height => 80) %></td>
+          <td><%= link_to 'some_title', link_to_cloudinary(document.cloudinary_uri), target: "_blank" %></td>
+          <td>
+            <% unless document.creator <= 0 %>
+              <%= document.creator %>
+            <% else %>
+              Unknown
+            <% end %>
+             at <%= document.created_at %>
+          </td>
+          <td>
+            <% unless document.last_editor.nil? %>
+              <%= document.last_editor %> at <%= document.updated_at %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
+            <ul class="documents-controls">
+              <li>Edit</li>
+              <li>Delete</li>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
   <h4 class="text-center">Someone stole this project's documents!</h4>
 <% end %>
+
+
+    
+      

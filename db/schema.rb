@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604210502) do
+ActiveRecord::Schema.define(version: 20170605211652) do
 
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "project_id"
-    t.string   "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "cloudinary_uri"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "title",          default: "UnknownTitle", null: false
+    t.integer  "creator",        default: 0,              null: false
+    t.integer  "last_editor"
     t.index ["project_id"], name: "index_documents_on_project_id", using: :btree
   end
 
