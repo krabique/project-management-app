@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
 
+  #get 'documents/edit'
+  #resources :documents, only: [:edit]
+  #get '/projects/:id/documents/edit/:project_id', to: 'documents#edit'
+  
+  resources :documents 
+  resources :projects
+  
+  
+
   get 'tags/:tag', to: 'projects#index', as: :tag
 
-  resources :projects
+  #resources :documents, only: [:edit]
+  
   
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
