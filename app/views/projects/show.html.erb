@@ -69,8 +69,9 @@
     <tbody>
       <% @project.documents.each do |document| %>
         <tr>
-          <td><%= cl_image_tag(document.cloudinary_uri, :crop => :fill, 
-            :width => 120, :height => 80) %></td>
+          <td><%= link_to cl_image_tag(document.cloudinary_uri, :crop => :fill, 
+            :width => 120, :height => 80), link_to_cloudinary(document.cloudinary_uri), 
+              target: "_blank" %></td>
           <td>
             <%= link_to document.title, 
               link_to_cloudinary(document.cloudinary_uri), 
