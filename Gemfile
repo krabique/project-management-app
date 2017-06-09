@@ -53,6 +53,9 @@ gem 'paperclip', '~> 5.1'
 gem 'acts-as-taggable-on', '~> 5.0'
 # For files cloud
 gem 'cloudinary'
+# For dumping the db to seeds.rb
+# MOVE IT TO DEVELOPMENT LATER
+gem 'seed_dump'
 # -- My -- end -------------------------------------
 
 
