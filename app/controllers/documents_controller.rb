@@ -3,6 +3,7 @@ class DocumentsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   
   def show
+    @users = User.all
   end
   
   def edit
@@ -20,6 +21,9 @@ class DocumentsController < ApplicationController
     #end
     
     #params[:project][:user_ids] ||= []
+    
+    
+    
     respond_to do |format|
       update_respond_formatted(format)
     end
@@ -48,6 +52,7 @@ class DocumentsController < ApplicationController
   
   def update_respond_formatted(format)
     if @document.update(document_params)
+      @document.update(last_editor: current_user.id)
       update_respond_formatted_for_successful(@document, format)
     else
       update_respond_formatted_for_unchanged(@document, format)
@@ -55,7 +60,7 @@ class DocumentsController < ApplicationController
   end
   
   def update_respond_formatted_for_successful(document, format)
-    format.html { redirect_to document, 
+    format.html { redirect_to document.project, 
       notice: 'Document was successfully updated.' }
     format.json { render :show, status: :ok, location: document }
   end

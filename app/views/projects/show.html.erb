@@ -87,8 +87,8 @@
           </td>
           <td>
             <% unless document.last_editor.nil? %>
-              <%= link_to @project.users.find_by_id(document.last_editor).name, 
-                @project.users.find_by_id(document.last_editor) %> 
+              <%= link_to @users.find_by_id(document.last_editor).name, 
+                @users.find_by_id(document.last_editor) %> 
               at <%= document.updated_at %>
             <% else %>
               -
