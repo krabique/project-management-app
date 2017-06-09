@@ -35,27 +35,28 @@ class DocumentsController < ApplicationController
     @document = Document.find_by(id: params[:id])
   end
   
-  def project_params
-    params.require(:project).permit(:title, :cloudinary_uri)
+  def document_params
+    params.require(:document).permit(:title, :cloudinary_uri, :creator, 
+      :last_editor)
   end
   
   def update_respond_formatted(format)
-    if @project.update(project_params)
-      update_respond_formatted_for_successful(@project, format)
+    if @document.update(document_params)
+      update_respond_formatted_for_successful(@document, format)
     else
-      update_respond_formatted_for_unchanged(@project, format)
+      update_respond_formatted_for_unchanged(@document, format)
     end
   end
   
-  def update_respond_formatted_for_successful(project, format)
-    format.html { redirect_to project, 
-      notice: 'Project was successfully updated.' }
-    format.json { render :show, status: :ok, location: project }
+  def update_respond_formatted_for_successful(document, format)
+    format.html { redirect_to document, 
+      notice: 'Document was successfully updated.' }
+    format.json { render :show, status: :ok, location: document }
   end
   
-  def update_respond_formatted_for_unchanged(project, format)
+  def update_respond_formatted_for_unchanged(document, format)
     format.html { render :edit }
-    format.json { render json: project.errors, 
+    format.json { render json: document.errors, 
       status: :unprocessable_entity }
   end
 end

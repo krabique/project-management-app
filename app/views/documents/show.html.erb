@@ -27,9 +27,13 @@
            at <%= @document.created_at %>
         </td>
         <td>
-          
+          <% unless @document.last_editor.nil? %>
+            <%= link_to @project.users.find_by_id(@document.last_editor).name, 
+              @project.users.find_by_id(@document.last_editor) %> 
+            at <%= @document.updated_at %>
+          <% else %>
             -
-          
+          <% end %>
         </td>
         <td>
           <ul class="documents-controls">
