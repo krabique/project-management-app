@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   #get '/projects/:id/documents/edit/:project_id', to: 'documents#edit'
   
   resources :documents 
+  get '/documents/new/:id', to: 'documents#new', as: 'new_document_project_id'
+  post '/documents/new/:id', to: 'documents#create', as: 'create_document_project_id'
   resources :projects
   
   

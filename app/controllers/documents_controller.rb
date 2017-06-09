@@ -6,6 +6,11 @@ class DocumentsController < ApplicationController
     @users = User.all
   end
   
+  def new
+    @document = Document.new
+    @project = Project.find_by(id: params[:id])
+  end
+  
   def edit
     unless (can? :manage, Project) || 
       current_user.projects.find_by_id(@project.id)
@@ -13,17 +18,30 @@ class DocumentsController < ApplicationController
     end
   end
   
+  def create
+    @project = Project.find_by_id(params[:id])
+    #@document = Document.new(document_params)
+    
+    
+    
+
+    respond_to do |format|
+      if params[:image_id].present?
+        preloaded = Cloudinary::PreloadedFile.new(params[:image_id])         
+        raise "Invalid upload signature" if !preloaded.valid?
+        if @project.documents.create( { title: params[:document][:title], cloudinary_uri: preloaded.identifier, creator: current_user.id } )
+          format.html { redirect_to @project, notice: 'Document was successfully created.' }
+          format.json { render :show, status: :created, location: @project }
+        else
+          format.html { render :new }
+          format.json { render json: @project.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
+  
   def update
-    #if params[:image_id].present?
-    #  preloaded = Cloudinary::PreloadedFile.new(params[:image_id])         
-    #  raise "Invalid upload signature" if !preloaded.valid?
-    #  @project.documents.create( { cloudinary_uri: preloaded.identifier } )
-    #end
-    
-    #params[:project][:user_ids] ||= []
-    
-    
-    
     respond_to do |format|
       update_respond_formatted(format)
     end

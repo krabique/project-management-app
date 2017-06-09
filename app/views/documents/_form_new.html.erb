@@ -1,0 +1,33 @@
+<%= form_for document, url: create_document_project_id_path, html: { method: :post } do |f| %>
+  <% if project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project.errors.count, "error") %> 
+        prohibited this project from being saved:</h2>
+
+      <ul>
+        <% project.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <strong><%= f.label :title %></strong>
+    <%= f.text_field :title %>
+  </div>
+  
+  <div class="field">
+    <%= cl_image_upload_tag(:image_id, :crop => :limit, :width => 1000, :height => 1000) %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+<%= form_tag(:method => :post) do  %>
+  
+<% end %>
