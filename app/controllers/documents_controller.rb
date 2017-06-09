@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show, :edit, :update]
-  before_action :set_project, only: [:show, :edit, :update]
+  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
   
   def show
   end
@@ -23,6 +23,12 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       update_respond_formatted(format)
     end
+  end
+  
+  def destroy
+    @document = Document.find(params[:id])
+    @document.destroy
+    redirect_to @project
   end
   
   private

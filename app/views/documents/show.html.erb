@@ -37,8 +37,8 @@
         </td>
         <td>
           <ul class="documents-controls">
-            <li>Edit</li>
-            <li>Delete</li>
+            <li><%= link_to 'Edit', edit_document_url %></li>
+            <li><%= link_to 'Delete', @document, method: :delete, data: { confirm: 'Are you sure?' } %></li>
           </ul>
         </td>
       </tr>
