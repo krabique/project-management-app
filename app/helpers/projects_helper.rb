@@ -5,13 +5,11 @@ module ProjectsHelper
   
   def link_to_cloudinary(path, parameters)
     type = cloudinary_link_type(path)
-    #cloudinary_start_path << ("#{type}/upload/#{parameters}/#{path}")
     "#{cloudinary_start_path}#{type}/upload/#{parameters}/#{path}"
   end
   
   def link_to_cloudinary(path)
     type = cloudinary_link_type(path)
-    #cloudinary_start_path << ("#{type}/upload/#{path}")
     "#{cloudinary_start_path}#{type}/upload/#{path}"
   end
   
