@@ -1,5 +1,17 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update]
+
+  def new
+    @project = Project.new if authorized?
+  end
+  
+  def create
+    if authorized?
+      respond_to do |format|
+        create_action_respond_formatted(format)
+      end
+    end
+  end
   
   def index
     if params[:tag]
@@ -13,52 +25,19 @@ class ProjectsController < ApplicationController
     @users = User.all
   end
   
-  def new
-    unless (can? :manage, Project)
-      redirect_to root_path, 
-        notice: "You don't have permission to create projects."
-    else 
-      @project = Project.new
-    end
+  def edit
+    authorized?
   end
   
-  def create
-    unless (can? :manage, Project)
-      redirect_to root_path, 
-        notice: "You don't have permission to create projects."
-    else 
+  def update
+    if authorized?
+      params[:project][:user_ids] ||= []
       respond_to do |format|
-        if @project = Project.create(project_params)
-          format.html { redirect_to @project, notice: 'Project was successfully created.' }
-          format.json { render :show, status: :created, location: @project }
-        else
-          format.html { render :new }
-          format.json { render json: @project.errors, status: :unprocessable_entity }
-        end
+        update_action_respond_formatted(format)
       end
     end
   end
   
-  def edit
-    unless (can? :manage, Project) || 
-      current_user.projects.find_by_id(@project.id)
-      redirect_to @project, notice: "You cannot edit this project."
-    end
-  end
-  
-  def update
-    if params[:image_id].present?
-      preloaded = Cloudinary::PreloadedFile.new(params[:image_id])         
-      raise "Invalid upload signature" if !preloaded.valid?
-      @project.documents.create( { cloudinary_uri: preloaded.identifier, 
-                                   creator: current_user.id } )
-    end
-    
-    params[:project][:user_ids] ||= []
-    respond_to do |format|
-      update_respond_formatted(format)
-    end
-  end
   
   private
   
@@ -76,23 +55,42 @@ class ProjectsController < ApplicationController
     end
   end
   
-  def update_respond_formatted(format)
+  def update_action_respond_formatted(format)
     if @project.update(project_params)
-      update_respond_formatted_for_successful(@project, format)
+      update_action_respond_formatted_for_successful(@project, format)
     else
-      update_respond_formatted_for_unchanged(@project, format)
+      update_action_respond_formatted_for_unchanged(@project, format)
     end
   end
   
-  def update_respond_formatted_for_successful(project, format)
+  def update_action_respond_formatted_for_successful(project, format)
     format.html { redirect_to project, 
       notice: 'Project was successfully updated.' }
     format.json { render :show, status: :ok, location: project }
   end
   
-  def update_respond_formatted_for_unchanged(project, format)
+  def update_action_respond_formatted_for_unchanged(project, format)
     format.html { render :edit }
     format.json { render json: project.errors, 
       status: :unprocessable_entity }
   end
+  
+  def create_action_respond_formatted(format)
+    if @project = Project.create(project_params)
+      create_action_respond_formatted_for_successful(format)
+    else
+      update_action_respond_formatted_for_unchanged(format)
+    end
+  end
+  
+  def create_action_respond_formatted_for_successful(format)
+    format.html { redirect_to @project, 
+      notice: 'Project was successfully created.' }
+    format.json { render :show, status: :created, location: @project }
+  end
+  
+  def update_action_respond_formatted_for_unchanged(format)
+    format.html { render :new }
+    format.json { render json: @project.errors, status: :unprocessable_entity }
+  end  
 end
