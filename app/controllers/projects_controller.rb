@@ -13,6 +13,32 @@ class ProjectsController < ApplicationController
     @users = User.all
   end
   
+  def new
+    unless (can? :manage, Project)
+      redirect_to root_path, 
+        notice: "You don't have permission to create projects."
+    else 
+      @project = Project.new
+    end
+  end
+  
+  def create
+    unless (can? :manage, Project)
+      redirect_to root_path, 
+        notice: "You don't have permission to create projects."
+    else 
+      respond_to do |format|
+        if @project = Project.create(project_params)
+          format.html { redirect_to @project, notice: 'Project was successfully created.' }
+          format.json { render :show, status: :created, location: @project }
+        else
+          format.html { render :new }
+          format.json { render json: @project.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+  
   def edit
     unless (can? :manage, Project) || 
       current_user.projects.find_by_id(@project.id)
