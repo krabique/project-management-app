@@ -1,9 +1,3 @@
-# automatically generated with rake db:seed:dump
-# 09.06.2017 18:56 local time
-
-# FIXED WITH SOME EFFORT MANUALLY AT 21:00
-
-
 Project.create!([
   {id: 1, title: "My Awesome Project", description: "This is an absolutely awesome project of mine."},
   {id: 2, title: "Gorgeous Project of mine", description: "Just fabulous one, I mean it.  BANANA"},
@@ -32,6 +26,11 @@ Document.create!([
   {project_id: 1, cloudinary_uri: "v1497018226/hn3bgv1bdx7nezfr6ilu.jpg", title: "UnknownTitle", creator: 9, last_editor: nil}
 ])
 
-Project.find_by_id(1).update("user_ids"=>["5", "9"])
-Project.find_by_id(2).update("user_ids"=>["4", "5"])
-Project.find_by_id(4).update("user_ids"=>["5", "6", "9"])
+Project.find_by_id(1).update!("user_ids"=>["5", "9"])
+Project.find_by_id(2).update!("user_ids"=>["4", "5"])
+Project.find_by_id(4).update!("user_ids"=>["5", "6", "9"])
+
+Project.find_by_id(1).update!({ "tag_list"=>"love, wandcraft, pony, rainbow, lol" })
+Project.find_by_id(2).update!({ "tag_list"=>"love, pony, rainbow" })
+Project.find_by_id(3).update!({ "tag_list"=>"love, rainbow" })
+Project.find_by_id(4).update!({ "tag_list"=>"love, shit, fuck" })
