@@ -69,9 +69,16 @@
     <tbody>
       <% @project.documents.each do |document| %>
         <tr>
-          <td><%= link_to cl_image_tag(document.cloudinary_uri, :crop => :fill, 
-            :width => 120, :height => 80), link_to_cloudinary(document.cloudinary_uri), 
-              target: "_blank" %></td>
+          <td>
+            <% if is_image_path?(document.cloudinary_uri) %>
+              <%= link_to cl_image_tag(document.cloudinary_uri, :crop => :fill, 
+                :width => 120, :height => 80), link_to_cloudinary(document.cloudinary_uri), 
+                target: "_blank" %>
+            <% else %>
+              <%= link_to image_tag('documents/default.png', :width => 80, :height => 80), link_to_cloudinary(document.cloudinary_uri), 
+                target: "_blank" %>
+            <% end %>
+          </td>
           <td>
             <%= link_to document.title, 
               link_to_cloudinary(document.cloudinary_uri), 
@@ -79,8 +86,8 @@
           </td>
           <td>
             <% unless document.creator <= 0 %>
-              <%= link_to @project.users.find_by_id(document.creator).name, 
-                @project.users.find_by_id(document.creator) %>
+              <%= link_to @users.find_by_id(document.creator).name, 
+                @users.find_by_id(document.creator) %>
             <% else %>
               Unknown
             <% end %>
