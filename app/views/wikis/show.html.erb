@@ -13,13 +13,15 @@
 
 <p>
   <strong>Creator: </strong>
-  
-    <%= image_tag(@users.find_by_id(@wiki.creator).avatar.url(:thumb), 
-      :class => "user-thumb-image user-list") %>
-    <%= link_to(@users.find_by_id(@wiki.creator).name, 
-      @users.find_by_id(@wiki.creator)) %>
-      at <%= @wiki.created_at %>
-  
+  <% if @users.find_by_id(@wiki.creator) %>
+      <%= image_tag(@users.find_by_id(@wiki.creator).avatar.url(:thumb), 
+        :class => "user-thumb-image user-list") %>
+      <%= link_to(@users.find_by_id(@wiki.creator).name, 
+        @users.find_by_id(@wiki.creator)) %>
+        at <%= @wiki.created_at %>
+  <% else %>
+    Unknown
+  <% end %>
 </p>
 
 <% unless @wiki.last_editor.nil? %>
