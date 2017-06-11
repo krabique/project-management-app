@@ -1,17 +1,22 @@
 body {
-  background-color: #756460;
+  background-color: #212F3D;
+  color: white;
 }
 
 .bg-inverse {
-  background-color: #534542 !important;
+  background-color: #17202A !important;
 }
 
 a {
-  color: #B8C7DA;
+  color: #92D9F0;
+}
+
+a:hover { 
+  color: #459CB8;
 }
 
 .list-group-item {
-  background-color: #756460;
+  background-color: #212F3D;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -23,7 +28,7 @@ p {
 }
 
 .list-group {
-  border: 1px solid white;
+  border: red;
 }
 
 .list-group-item {
