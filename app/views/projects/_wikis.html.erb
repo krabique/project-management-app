@@ -1,0 +1,50 @@
+<% unless @project.wikis.empty? %>
+  <h3 class="text-center">This project's wikis</h3>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th>created by</th>
+        <th>last update by</th>
+        <th>controls</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.wikis.each do |wiki| %>
+        <tr>
+          <td>
+            <%= link_to wiki.title, wiki %>
+          </td>
+          <td>
+            <% unless wiki.creator <= 0 %>
+              <%= link_to @users.find_by_id(wiki.creator).name, 
+                @users.find_by_id(wiki.creator) %>
+            <% else %>
+              Unknown
+            <% end %>
+             at <%= wiki.created_at %>
+          </td>
+          <td>
+            <% unless wiki.last_editor.nil? %>
+              <%= link_to @users.find_by_id(wiki.last_editor).name, 
+                @users.find_by_id(wiki.last_editor) %> 
+              at <%= wiki.updated_at %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
+            <ul class="wikis-controls">
+              <li><%= link_to 'Edit', edit_wiki_path(wiki.id) %></li>
+              <li><%= link_to 'Delete', wiki, method: :delete, data: 
+                                      { confirm: 'Are you sure?' } %></li>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4 class="text-center">This project's wikis have taken a vacation!</h4>
+<% end %>
+<%= link_to 'New wiki', new_wiki_project_id_path(@project) %>

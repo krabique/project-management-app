@@ -79,7 +79,7 @@ class ProjectsController < ApplicationController
     if @project = Project.create(project_params)
       create_action_respond_formatted_for_successful(format)
     else
-      update_action_respond_formatted_for_unchanged(format)
+      create_action_respond_formatted_for_unchanged(format)
     end
   end
   
@@ -89,7 +89,7 @@ class ProjectsController < ApplicationController
     format.json { render :show, status: :created, location: @project }
   end
   
-  def update_action_respond_formatted_for_unchanged(format)
+  def create_action_respond_formatted_for_unchanged(format)
     format.html { render :new }
     format.json { render json: @project.errors, status: :unprocessable_entity }
   end  

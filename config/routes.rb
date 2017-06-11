@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
 
-  #get 'documents/edit'
-  #resources :documents, only: [:edit]
-  #get '/projects/:id/documents/edit/:project_id', to: 'documents#edit'
+  resources :wikis
+  get '/wikis/new/:id', to: 'wikis#new', as: 'new_wiki_project_id'
+  post '/wikis/new/:id', to: 'wikis#create', as: 'create_wiki_project_id'
+  
+  # the difference between :wikis and :resources here is
+  # that documents have two separate forms for new and update...
+  patch '/wikis/new/:id', to: 'wikis#update', as: 'update_wiki_project_id'
   
   resources :documents 
   get '/documents/new/:id', to: 'documents#new', as: 'new_document_project_id'
-  post '/documents/new/:id', to: 'documents#create', as: 'create_document_project_id'
+  post '/documents/new/:id', to: 'documents#create', 
+    as: 'create_document_project_id'
+    
   resources :projects
   
   

@@ -1,0 +1,13 @@
+<h1>My Wiki Pages</h1>
+<hr />
+<% @wikis.each do |wiki| %>
+  <h1><%= link_to wiki.title, wiki %></h1>
+
+  <p>
+    <%= markdown(wiki.body) %>
+  </p>
+
+  <% if wiki != @wikis.last %>
+  <hr />
+  <% end %>
+<% end %>
