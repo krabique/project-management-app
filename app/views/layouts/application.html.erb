@@ -9,6 +9,11 @@
   <%= javascript_include_tag 'application', 
     'data-turbolinks-track': 'reload' %>
   <%= cloudinary_js_config %>
+  
+  <% if current_user && current_user.dark_style %>
+    <%= stylesheet_link_tag 'dark', media: 'all',
+      'data-turbolinks-track': 'reload' %>
+  <% end %>
 </head>
 
 <body>
