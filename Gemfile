@@ -58,6 +58,8 @@ gem 'cloudinary'
 gem 'seed_dump'
 # For wiki pages
 gem 'redcarpet'
+# For full-text search
+gem 'thinking-sphinx', '~> 3.3'
 # -- My -- end -------------------------------------
 
 
