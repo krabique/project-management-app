@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   
   def create_cloudinary_link
     if params[:image_id].present?
-      preloaded_cloudinary = Cloudinary::PreloadedFile.new(params[:image_id])         
+      preloaded_cloudinary = Cloudinary::PreloadedFile.new(params[:image_id])
       raise "Invalid upload signature" if !preloaded_cloudinary.valid?
       return preloaded_cloudinary
     else

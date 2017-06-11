@@ -56,6 +56,8 @@ gem 'cloudinary'
 # For dumping the db to seeds.rb
 # MOVE IT TO DEVELOPMENT LATER
 gem 'seed_dump'
+# For wiki pages
+gem 'redcarpet'
 # -- My -- end -------------------------------------
 
 
