@@ -10,8 +10,11 @@ class WikisController < ApplicationController
   
   def create
     if authorized?
-      respond_to do |format|
-        create_action_respond_formatted(format)
+      if create_wiki_transaction
+        redirect_to @project, notice: 'Wiki was successfully created.'
+      else
+        redirect_to new_project_wiki(@project), 
+          alert: "There was an error creating wiki."
       end
     end
   end
@@ -30,8 +33,11 @@ class WikisController < ApplicationController
   
   def update
     if authorized?
-      respond_to do |format|
-        update_action_respond_formatted(format)
+      if update_wiki_transaction
+        redirect_to @wiki.project, notice: 'Wiki was successfully updated.'
+      else
+        redirect_to edit_project_wiki(@project, @wiki), 
+          alert: 'There was an error updating wiki.'
       end
     end
   end
@@ -63,59 +69,20 @@ class WikisController < ApplicationController
     params.require(:wiki).permit(:title, :body)
   end
   
-  def update_action_respond_formatted(format)
-    if update_wiki_transaction
-      update_action_respond_formatted_for_successful(@wiki, format)
-    else
-      update_action_respond_formatted_for_unchanged(@wiki, format)
-    end
-  end
-  
-  def update_action_respond_formatted_for_successful(wiki, format)
-    format.html { redirect_to wiki.project, 
-      notice: 'Wiki was successfully updated.' }
-    format.json { render :show, status: :ok, location: wiki }
-  end
-  
-  def update_action_respond_formatted_for_unchanged(wiki, format)
-    format.html { render :edit }
-    format.json { render json: wiki.errors, 
-      status: :unprocessable_entity }
-  end
-  
   def update_wiki_transaction
     Document.transaction do
       @wiki.update!(wiki_params)
       @wiki.update!(last_editor: current_user.id)
       return true
     end
-  end  
-  
-  def create_action_respond_formatted(format)
-    if create_wiki_transaction
-      create_action_respond_formatted_for_successful(format)
-    else
-      create_action_respond_formatted_for_unchanged(format)
-    end
   end
   
   def create_wiki_transaction
     Wiki.transaction do
       @project.wikis.create!(wiki_params)
-        .update!(creator: current_user.id)
+                    .update!(creator: current_user.id)
       return true
     end
-  end
-  
-  def create_action_respond_formatted_for_successful(format)
-    format.html { redirect_to @project, 
-      notice: 'Wiki was successfully created.' }
-    format.json { render :show, status: :created, location: @project }
-  end
-  
-  def create_action_respond_formatted_for_unchanged(format)
-    format.html { render :new }
-    format.json { render json: @project.errors, status: :unprocessable_entity }
   end
   
 end
