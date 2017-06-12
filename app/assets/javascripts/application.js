@@ -14,7 +14,6 @@
 //= require bootstrap
 //= require jquery_ujs
 //= require toastr
-//= require turbolinks
 //= require cloudinary
 //= require_tree .
 

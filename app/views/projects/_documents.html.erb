@@ -56,8 +56,8 @@
           </td>
           <td>
             <ul class="documents-controls">
-              <li><%= link_to 'Edit', edit_document_path(document.id) %></li>
-              <li><%= link_to 'Delete', document, method: :delete, data: 
+              <li><%= link_to 'Edit', edit_project_document_path(@project, document) %></li>
+              <li><%= link_to 'Delete', project_document_path(@project, document), method: :delete, data: 
                                       { confirm: 'Are you sure?' } %></li>
             </ul>
           </td>
@@ -68,4 +68,4 @@
 <% else %>
   <h4 class="text-center">Someone stole this project's documents!</h4>
 <% end %>
-<%= link_to 'New document', new_document_project_id_path(@project) %>
+<%= link_to 'New document', new_project_document_path(@project) %>

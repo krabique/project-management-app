@@ -4,15 +4,12 @@
 <head>
   <title>World's Best Project Management App</title>
   <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag    'application', media: 'all',
-    'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'application', 
-    'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= cloudinary_js_config %>
   
   <% if current_user && current_user.dark_style %>
-    <%= stylesheet_link_tag 'dark', media: 'all',
-      'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'dark', media: 'all' %>
   <% end %>
 </head>
 

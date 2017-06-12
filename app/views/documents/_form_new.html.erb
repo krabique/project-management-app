@@ -1,4 +1,4 @@
-<%= form_for document, url: create_document_project_id_path, html: { method: :post } do |f| %>
+<%= form_for document, url: project_documents_path, html: { method: :post } do |f| %>
   <% if project.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(project.errors.count, "error") %> 

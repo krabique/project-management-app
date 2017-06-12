@@ -1,16 +1,14 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :new, :create]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :new, :create]
+  
   def new
-    @project = Project.find_by(id: params[:id])
     if authorized?
       @document = Document.new
     end
   end
   
   def create
-    @project = Project.find_by_id(params[:id])
     if authorized?
       respond_to do |format|
         create_action_respond_formatted(format)
@@ -46,11 +44,15 @@ class DocumentsController < ApplicationController
   private
   
   def set_project
-    @project = @document.project
+    unless @project = @document.project
+      @project = Project.find_by(id: params[:project_id])
+    end
   end
   
   def set_document
-    @document = Document.find_by(id: params[:id])
+    unless @document = Document.find_by(id: params[:id])
+      @document = Document.new
+    end
   end
   
   def document_params

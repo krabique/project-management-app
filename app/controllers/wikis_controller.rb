@@ -1,16 +1,14 @@
 class WikisController < ApplicationController
-  before_action :set_wiki, only: [:show, :edit, :update, :destroy]
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_wiki, only: [:show, :edit, :update, :destroy, :new, :create]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :new, :create]
 
   def new
-    @project = Project.find_by(id: params[:id])
     if authorized?
       @wiki = Wiki.new
     end
   end
   
   def create
-    @project = Project.find_by_id(params[:id])
     if authorized?
       respond_to do |format|
         create_action_respond_formatted(format)
@@ -50,11 +48,15 @@ class WikisController < ApplicationController
   private
   
   def set_project
-    @project = @wiki.project
+    unless @project = @wiki.project
+      @project = Project.find_by(id: params[:project_id])
+    end
   end
   
   def set_wiki
-    @wiki = Wiki.find_by(id: params[:id])
+    unless @wiki = Wiki.find_by(id: params[:id])
+      @wiki = Wiki.new
+    end
   end
   
   def wiki_params
