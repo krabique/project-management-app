@@ -35,8 +35,8 @@
           </td>
           <td>
             <ul class="wikis-controls">
-              <li><%= link_to 'Edit', edit_project_wiki_path(@project, wiki) %></li>
-              <li><%= link_to 'Delete', project_wiki_path(@project, wiki),
+              <li><%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_project_wiki_path(@project, wiki) %></li>
+              <li><%= link_to (raw '<i class="fa fa-times" aria-hidden="true"></i>'), project_wiki_path(@project, wiki),
                                       method: :delete, data: 
                                       { confirm: 'Are you sure?' } %></li>
             </ul>

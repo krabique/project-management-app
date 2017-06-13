@@ -56,8 +56,8 @@
           </td>
           <td>
             <ul class="documents-controls">
-              <li><%= link_to 'Edit', edit_project_document_path(@project, document) %></li>
-              <li><%= link_to 'Delete', project_document_path(@project, document), method: :delete, data: 
+              <li><%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_project_document_path(@project, document) %></li>
+              <li><%= link_to (raw '<i class="fa fa-times" aria-hidden="true"></i>'), project_document_path(@project, document), method: :delete, data: 
                                       { confirm: 'Are you sure?' } %></li>
             </ul>
           </td>
