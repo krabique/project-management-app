@@ -48,4 +48,8 @@
 <% else %>
   <h4 class="text-center">This project's wikis have taken a vacation!</h4>
 <% end %>
-<%= link_to 'New wiki', new_project_wiki_path(@project) %>
+
+<% if current_user.projects.find_by_id(@project.id) || 
+      current_user.manager_role %>
+  <%= link_to 'New wiki', new_project_wiki_path(@project) %>
+<% end %>

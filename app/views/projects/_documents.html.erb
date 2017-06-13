@@ -68,4 +68,7 @@
 <% else %>
   <h4 class="text-center">Someone stole this project's documents!</h4>
 <% end %>
-<%= link_to 'New document', new_project_document_path(@project) %>
+<% if current_user.projects.find_by_id(@project.id) || 
+      current_user.manager_role %>
+  <%= link_to 'New document', new_project_document_path(@project) %>
+<% end %>

@@ -45,13 +45,11 @@ class Ability
     
     if user.user_role?
       can :read, :all 
-      can :manage, Project if user.projects.find_by_id(project_id)
-      can :manage, Document if user.projects.find_by_id(project_id)
-      can :manage, Wiki if user.projects.find_by_id(project_id)
+      if user.projects.find_by_id(project_id)
+        can :manage, Document
+        can :manage, Wiki
+      end
     end
-    
-    
-    
     
   end
 end
