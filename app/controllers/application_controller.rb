@@ -4,20 +4,6 @@ class ApplicationController < ActionController::Base
   
   protected
   
-  def authorized?
-    unless (can? :manage, Project) || 
-      current_user.projects.find_by_id(@project)
-      redirect_to project_or_root_pathes, alert: "Know your place, mere dev!"
-      return false
-    else
-      return true
-    end
-  end
-  
-  def project_or_root_pathes
-    @project.nil? ? root_path : @project
-  end
-  
   def create_cloudinary_link
     if params[:image_id].present?
       preloaded_cloudinary = Cloudinary::PreloadedFile.new(params[:image_id])
@@ -26,6 +12,13 @@ class ApplicationController < ActionController::Base
     else
       return false
     end
+  end
+  
+  
+  private
+  
+  def current_ability
+    @current_ability ||= Ability.new(current_user, params[:project_id])
   end
   
 end

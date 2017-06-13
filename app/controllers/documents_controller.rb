@@ -1,22 +1,19 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy, :new, :create]
   before_action :set_project, only: [:show, :edit, :update, :destroy, :new, :create]
+  load_and_authorize_resource
   
   def new
-    if authorized?
-      @document = Document.new
-    end
+    @document = Document.new
   end
   
   def create
-    if authorized?
-      if preloaded_cloudinary = create_cloudinary_link
-        create_document(preloaded_cloudinary)
-        redirect_to @project, notice: 'Document was successfully created.'
-      else
-        redirect_to new_project_document_path(@project), 
-          alert: 'There was an error trying to create a documment.'
-      end
+    if preloaded_cloudinary = create_cloudinary_link
+      create_document(preloaded_cloudinary)
+      redirect_to @project, notice: 'Document was successfully created.'
+    else
+      redirect_to new_project_document_path(@project), 
+        alert: 'There was an error trying to create a documment.'
     end
   end
   
@@ -25,27 +22,22 @@ class DocumentsController < ApplicationController
   end
   
   def edit
-    authorized?
   end
   
   def update
-    if authorized?
-      if update_document_transaction
-        redirect_to @document.project, 
-          notice: 'Document was successfully updated.'
-      else
-        redirect_to edit_project_document(@project, @document), 
-          alert: 'There was an error updating the document.'
-      end
+    if update_document_transaction
+      redirect_to @document.project, 
+        notice: 'Document was successfully updated.'
+    else
+      redirect_to edit_project_document(@project, @document), 
+        alert: 'There was an error updating the document.'
     end
   end
   
   def destroy
     @document = Document.find(params[:id])
-    if authorized?
-      @document.destroy
-      redirect_to @project
-    end
+    @document.destroy
+    redirect_to @project
   end
   
   

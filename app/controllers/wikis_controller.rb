@@ -1,21 +1,18 @@
 class WikisController < ApplicationController
   before_action :set_wiki, only: [:show, :edit, :update, :destroy, :new, :create]
   before_action :set_project, only: [:show, :edit, :update, :destroy, :new, :create]
+  load_and_authorize_resource
 
   def new
-    if authorized?
-      @wiki = Wiki.new
-    end
+    @wiki = Wiki.new
   end
   
   def create
-    if authorized?
-      if create_wiki_transaction
-        redirect_to @project, notice: 'Wiki was successfully created.'
-      else
-        redirect_to new_project_wiki(@project), 
-          alert: "There was an error creating wiki."
-      end
+    if create_wiki_transaction
+      redirect_to @project, notice: 'Wiki was successfully created.'
+    else
+      redirect_to new_project_wiki(@project), 
+        alert: "There was an error creating wiki."
     end
   end
   
@@ -28,26 +25,21 @@ class WikisController < ApplicationController
   end
   
   def edit
-    authorized?
   end
   
   def update
-    if authorized?
-      if update_wiki_transaction
-        redirect_to @wiki.project, notice: 'Wiki was successfully updated.'
-      else
-        redirect_to edit_project_wiki(@project, @wiki), 
-          alert: 'There was an error updating wiki.'
-      end
+    if update_wiki_transaction
+      redirect_to @wiki.project, notice: 'Wiki was successfully updated.'
+    else
+      redirect_to edit_project_wiki(@project, @wiki), 
+        alert: 'There was an error updating wiki.'
     end
   end
   
   def destroy
     @wiki = Wiki.find(params[:id])
-    if authorized?
-      @wiki.destroy
-      redirect_to @project
-    end
+    @wiki.destroy
+    redirect_to @project
   end
   
   

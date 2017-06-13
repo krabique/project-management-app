@@ -1,17 +1,15 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update]
+  load_and_authorize_resource
 
   def new
-    @project = Project.new if authorized?
   end
   
   def create
-    if authorized?
-      if @project = Project.create(project_params)
-        redirect_to @project, notice: 'Project was successfully created.'
-      else
-        render :new
-      end
+    if @project = Project.create(project_params)
+      redirect_to @project, notice: 'Project was successfully created.'
+    else
+      render :new
     end
   end
   
@@ -28,17 +26,14 @@ class ProjectsController < ApplicationController
   end
   
   def edit
-    authorized?
   end
   
   def update
-    if authorized?
-      params[:project][:user_ids] ||= []
-      if @project.update(project_params)
-        redirect_to @project, notice: 'Project was successfully updated.'
-      else
-        render :edit
-      end
+    params[:project][:user_ids] ||= []
+    if @project.update(project_params)
+      redirect_to @project, notice: 'Project was successfully updated.'
+    else
+      render :edit
     end
   end
   
@@ -50,7 +45,7 @@ class ProjectsController < ApplicationController
   end
   
   def project_params
-    if can? :manage, Project
+    if current_user.manager_role?
       params.require(:project).permit(:title, :description, :tag_list, 
         { :user_ids => [] } 
       )
