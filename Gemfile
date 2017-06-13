@@ -60,6 +60,8 @@ gem 'seed_dump'
 gem 'redcarpet'
 # For full-text search
 gem 'thinking-sphinx', '~> 3.3'
+# For bootstrap exception
+gem 'rails-assets-tether'
 # -- My -- end -------------------------------------
 
 
