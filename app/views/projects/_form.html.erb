@@ -26,17 +26,19 @@
     <strong><%= f.label :tag_list, "Tags (separated by commas)" %></strong>
     <%= f.text_field :tag_list, id: "tags", value: project.tag_list.to_s %>
   </div>
-  <% if can? :manage, Project %>
-    <p><strong>This project's users:</strong>
+  
+  <p><strong>This project's users:</strong>
+  <div class="list-group form-users-list">
     <% User.all.each do |user| %>
-      <div>
+      <div class="list-group-item">
         <%= check_box_tag "project[user_ids][]", user.id, 
           project.users.include?(user) %>
         <%= user.name %>
       </div>
     <% end %>
-    </p>
-  <% end %>
+  </div>
+  </p>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

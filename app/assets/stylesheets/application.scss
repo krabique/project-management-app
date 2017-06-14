@@ -80,7 +80,6 @@
   text-align: center;
 }
 
-
 .wikis-controls {
   list-style: none;
   padding-left: 0px;
@@ -110,3 +109,10 @@ ul.ui-autocomplete {
 }
 
 .ui-helper-hidden-accessible { display:none; }
+
+.form-users-list {
+  max-width: 30em;
+  margin: 0 auto;
+  max-height:150px;
+  overflow-y: scroll;
+}
