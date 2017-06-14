@@ -8,7 +8,8 @@
           <div class="col-sm-6">
             <%= render "home/all_projects" %>
             <br>
-            <%= link_to 'Create new project', new_project_path if 
+            <%= link_to (raw '<i class="fa fa-plus-circle" aria-hidden="true">
+              </i> Create new project'), new_project_path if 
               (can? :manage, Project) %>
           </div>
         

@@ -8,7 +8,8 @@
   Tags: <%= tag_links_for_project(@project) %>
 </p>
 
-<%= link_to 'Edit', edit_project_path(@project) if can? :manage, Project %>
+<%= link_to (raw '<i class="fa fa-pencil-square-o" aria-hidden="true">
+  </i> Edit'), edit_project_path(@project) if can? :manage, Project %>
 
 <% unless @project.users.empty? %>
   <h3 class="text-center">This project's developers</h3>
@@ -31,4 +32,5 @@
 <br><br>
 <%= render "projects/wikis" %>
 <br><br>
-<%= link_to 'Back to all projects', projects_path %>
+<%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
+  </i> Back to all projects'), projects_path %>

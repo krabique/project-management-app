@@ -41,9 +41,15 @@
           </td>
           <td>
             <ul class="documents-controls">
-              <li><%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true"></i>'), edit_project_document_path(@project, document) %></li>
-              <li><%= link_to (raw '<i class="fa fa-times" aria-hidden="true"></i>'), project_document_path(@project, document), method: :delete, data: 
-                                      { confirm: 'Are you sure?' } %></li>
+              <li>
+                <%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">
+                  </i>'), edit_project_document_path(@project, document) %>
+              </li>
+              <li>
+                <%= link_to (raw '<i class="fa fa-times" aria-hidden="true">
+                  </i>'), project_document_path(@project, document), 
+                  method: :delete, data: { confirm: 'Are you sure?' } %>
+              </li>
             </ul>
           </td>
         </tr>
@@ -55,5 +61,6 @@
 <% end %>
 <% if current_user.projects.find_by_id(@project.id) || 
       current_user.manager_role %>
-  <%= link_to 'New document', new_project_document_path(@project) %>
+  <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
+    </i> New document'), new_project_document_path(@project) %>
 <% end %>

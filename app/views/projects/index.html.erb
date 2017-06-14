@@ -1,4 +1,5 @@
-<%= link_to 'Create new project', new_project_path if (can? :manage, Project) %>
+<%= link_to (raw '<i class="fa fa-plus-circle" aria-hidden="true">
+  </i> Create new project'), new_project_path if (can? :manage, Project) %>
 <%= render "home/tags_cloud" %>
 <br>
 <div class="container">
