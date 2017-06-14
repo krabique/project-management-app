@@ -24,7 +24,7 @@
   
   <div class="field">
     <strong><%= f.label :tag_list, "Tags (separated by commas)" %></strong>
-    <%= f.text_field :tag_list, value: project.tag_list.to_s %>
+    <%= f.text_field :tag_list, id: "tags", value: project.tag_list.to_s %>
   </div>
   <% if can? :manage, Project %>
     <p><strong>This project's users:</strong>

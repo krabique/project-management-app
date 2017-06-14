@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
   
   get 'tags/:tag', to: 'projects#index', as: :tag
+  get 'tag_list', to: 'tags#index'
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: {
