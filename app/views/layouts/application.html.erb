@@ -55,27 +55,35 @@
         
         <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-            <li class="nav-item active">
-              <%= link_to('Logout', destroy_user_session_path, 
-                :method => :delete, :class => "nav-link") %>
-            </li>
-            <li class="nav-item active">
-              <%= link_to(current_user.name, current_user, 
-                :class => "nav-link") %>
-            </li>
-            <li class="nav-item active">
-              <%= image_tag(current_user.avatar.url(:thumb), 
-                :class => "user-thumb-image") %>
-            </li>
+        <div class="form-group">
+          <%= form_tag(projects_path, :method => "get", id: "search-form") do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+            <%= button_tag(type: "submit", class: "btn btn-default") do %>
+              <i class="fa fa-search" aria-hidden="true"></i>
+            <% end %>
+          <% end %>
+        </div>
+          <li class="nav-item active">
+            <%= link_to('Logout', destroy_user_session_path, 
+              :method => :delete, :class => "nav-link") %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to(current_user.name, current_user, 
+              :class => "nav-link") %>
+          </li>
+          <li class="nav-item active">
+            <%= image_tag(current_user.avatar.url(:thumb), 
+              :class => "user-thumb-image") %>
+          </li>
         <% else %>
-            <li class="nav-item active">
-              <%= link_to('Login', new_user_session_path, 
-                :class => "nav-link") %>
-            </li>
-            <li class="nav-item active">
-              <%= link_to('Register', new_user_registration_path, 
-                :class => "nav-link")  %>
-            </li>
+          <li class="nav-item active">
+            <%= link_to('Login', new_user_session_path, 
+              :class => "nav-link") %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to('Register', new_user_registration_path, 
+              :class => "nav-link")  %>
+          </li>
         <% end %>
         </ul>
         <!--

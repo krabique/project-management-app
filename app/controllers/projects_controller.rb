@@ -16,6 +16,8 @@ class ProjectsController < ApplicationController
   def index
     if params[:tag]
       @projects = Project.tagged_with(params[:tag])
+    elsif params[:search]
+      @projects = Project.search params[:search]
     else
       @projects = Project.all
     end
@@ -50,7 +52,7 @@ class ProjectsController < ApplicationController
         { :user_ids => [] } 
       )
     else
-      params.require(:project).permit(:title, :description, :tag_list)
+      params.require(:project).permit(:title, :description, :tag_list, :search)
     end
   end
 

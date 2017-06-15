@@ -3,4 +3,6 @@ class Project < ApplicationRecord
   acts_as_taggable
   has_many :documents
   has_many :wikis
+
+  after_save ThinkingSphinx::RealTime.callback_for(:project)
 end

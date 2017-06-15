@@ -120,3 +120,13 @@ ul.ui-autocomplete {
 .wysihtml5-sandbox {
   height: auto !important;
 }
+
+#search-form {
+  display: -webkit-inline-box;
+  width: 12em;
+  padding-right: 3em;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
