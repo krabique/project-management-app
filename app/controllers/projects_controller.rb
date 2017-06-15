@@ -48,13 +48,10 @@ class ProjectsController < ApplicationController
   end
   
   def project_params
-    if current_user.manager_role?
-      params.require(:project).permit(:title, :description, :tag_list, :search, :archived,
-        { :user_ids => [] } 
-      )
-    else
-      params.require(:project).permit(:title, :description, :tag_list, :search)
-    end
+    params.require(:project)
+      .permit(:title, :description, :tag_list, :search, :archived,
+      { :user_ids => [] } 
+    )
   end
 
 end

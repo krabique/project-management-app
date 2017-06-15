@@ -16,7 +16,9 @@ class ApplicationController < ActionController::Base
   
   def archived?(archived_param=nil)
     if @project.archived
-      redirect_to @project, alert: "This project is archived!" if archived_param != "0"
+      if archived_param != "0"
+        redirect_to @project, alert: "This project is archived!" 
+      end
     end
   end
   

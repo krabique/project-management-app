@@ -44,7 +44,8 @@
               <%= link_to('All Projects', projects_path, 
                 :class => "nav-link") %>
             </li>
-              <% if current_user.superadmin_role? || current_user.manager_role? %>
+              <% if current_user.superadmin_role? ||
+                current_user.manager_role? %>
                 <li class="nav-item active">
                   <%= link_to('Admin Dashboard', rails_admin_path, 
                     :class => "nav-link") %>
@@ -57,16 +58,22 @@
         <% if user_signed_in? %>
           <li class="nav-item active">
             <% unless current_user.dark_style %>
-              <%= link_to (raw 'dark style <i class="fa fa-moon-o" aria-hidden="true"></i>'), user_registration_path(:dark_style => "true"),
+              <%= link_to (raw 'dark style <i class="fa fa-moon-o" 
+                aria-hidden="true"></i>'), 
+                user_registration_path(:dark_style => "true"),
                 method: :patch, :class => "nav-link" %>
             <% else %>
-              <%= link_to (raw 'bright style <i class="fa fa-sun-o" aria-hidden="true"></i>'), user_registration_path(:dark_style => "false"),
+              <%= link_to (raw 'bright style <i class="fa fa-sun-o" 
+                aria-hidden="true">
+                </i>'), user_registration_path(:dark_style => "false"),
                 method: :patch, :class => "nav-link" %>
             <% end %>
           </li>
           <div class="form-group">
-            <%= form_tag(projects_path, :method => "get", id: "search-form") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+            <%= form_tag(projects_path, :method => "get",
+              id: "search-form") do %>
+              <%= text_field_tag :search, params[:search], 
+                placeholder: "Search", class: "form-control" %>
               <%= button_tag(type: "submit", class: "btn btn-default") do %>
                 <i class="fa fa-search" aria-hidden="true"></i>
               <% end %>
@@ -95,14 +102,6 @@
           </li>
         <% end %>
         </ul>
-        <!--
-        <form class="form-inline my-2 my-md-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
-        -->
       </div>
     </div>
   </nav>

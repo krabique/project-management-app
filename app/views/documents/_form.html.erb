@@ -16,7 +16,8 @@
   <%= f.input :cloudinary_uri if document.cloudinary_uri %>
 
   <div class="field">
-    <%= cl_image_upload_tag(:image_id, :crop => :limit, :width => 1000, :height => 1000) %>
+    <%= cl_image_upload_tag(:image_id, :crop => :limit,
+      :width => 1000, :height => 1000) %>
   </div>
   
   <br>

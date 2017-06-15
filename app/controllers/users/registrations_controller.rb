@@ -20,7 +20,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     if params[:dark_style] && !params[:name]
-      resource.update_without_password({ "dark_style" => "#{params[:dark_style]}" })
+      resource.update_without_password(
+        { "dark_style" => "#{params[:dark_style]}" })
       redirect_to(:back)
     else
       super
