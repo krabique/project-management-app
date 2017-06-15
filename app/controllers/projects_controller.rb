@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update]
   load_and_authorize_resource
+  before_action(only: [:update]) { archived? project_params[:archived] }
 
   def new
   end
@@ -48,7 +49,7 @@ class ProjectsController < ApplicationController
   
   def project_params
     if current_user.manager_role?
-      params.require(:project).permit(:title, :description, :tag_list, 
+      params.require(:project).permit(:title, :description, :tag_list, :search, :archived,
         { :user_ids => [] } 
       )
     else

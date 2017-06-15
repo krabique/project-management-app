@@ -35,15 +35,17 @@
           </td>
           <td>
             <ul class="wikis-controls">
-              <li>
-                <%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">
-                  </i>'), edit_project_wiki_path(@project, wiki) %>
-              </li>
-              <li>
-                <%= link_to (raw '<i class="fa fa-times" aria-hidden="true">
-                  </i>'), project_wiki_path(@project, wiki),
-                  method: :delete, data: { confirm: 'Are you sure?' } %>
-              </li>
+              <% unless @project.archived %>
+                <li>
+                  <%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">
+                    </i>'), edit_project_wiki_path(@project, wiki) %>
+                </li>
+                <li>
+                  <%= link_to (raw '<i class="fa fa-times" aria-hidden="true">
+                    </i>'), project_wiki_path(@project, wiki),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+                </li>
+              <% end %>
             </ul>
           </td>
         </tr>
@@ -55,7 +57,9 @@
 <% end %>
 
 <% if current_user.projects.find_by_id(@project.id) || 
-      current_user.manager_role %>
-  <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
-    </i> New wiki'), new_project_wiki_path(@project) %>
+  current_user.manager_role %>
+  <% unless @project.archived %>
+    <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
+      </i> New wiki'), new_project_wiki_path(@project) %>
+  <% end %>
 <% end %>

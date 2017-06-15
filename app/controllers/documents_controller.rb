@@ -2,6 +2,7 @@ class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy, :new, :create]
   before_action :set_project, only: [:show, :edit, :update, :destroy, :new, :create]
   load_and_authorize_resource
+  before_action :archived?, only: [:new, :create, :edit, :update, :destroy]
   
   def new
     @document = Document.new
