@@ -55,14 +55,14 @@
         
         <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-        <div class="form-group">
-          <%= form_tag(projects_path, :method => "get", id: "search-form") do %>
-            <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
-            <%= button_tag(type: "submit", class: "btn btn-default") do %>
-              <i class="fa fa-search" aria-hidden="true"></i>
+          <div class="form-group">
+            <%= form_tag(projects_path, :method => "get", id: "search-form") do %>
+              <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+              <%= button_tag(type: "submit", class: "btn btn-default") do %>
+                <i class="fa fa-search" aria-hidden="true"></i>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
+          </div>
           <li class="nav-item active">
             <%= link_to('Logout', destroy_user_session_path, 
               :method => :delete, :class => "nav-link") %>
