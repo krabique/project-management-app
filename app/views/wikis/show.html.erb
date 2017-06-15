@@ -36,5 +36,8 @@
 <% end %>
 
 
-<%= link_to 'Edit', edit_project_wiki_path(@wiki) %> |
-<%= link_to 'Back', @wiki.project %>
+<%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">
+  </i> Edit'), edit_project_wiki_path(@wiki) %>
+  <br>
+<%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
+  </i> Back'), @wiki.project %>

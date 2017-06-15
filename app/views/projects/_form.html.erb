@@ -1,4 +1,4 @@
-<%= form_for(project) do |f| %>
+<%= simple_form_for(project) do |f| %>
   <% if project.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(project.errors.count, "error") %> 
@@ -11,39 +11,26 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <strong><%= f.label :title %></strong>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <strong><%= f.label :description %></strong>
-    <%= f.text_area :description %>
-  </div>
   
-  <div class="field">
-    <strong><%= f.label :tag_list, "Tags (separated by commas)" %></strong>
-    <%= f.text_field :tag_list, id: "tags", value: project.tag_list.to_s %>
-  </div>
-  
-  <p><strong>This project's users:</strong>
-  <div class="list-group form-users-list">
-    <% User.all.each do |user| %>
-      <div class="list-group-item">
-        <%= check_box_tag "project[user_ids][]", user.id, 
-          project.users.include?(user) %>
-        <%= user.name %>
-      </div>
-    <% end %>
-  </div>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.label :tag_list, "Tags" %>
+  <%= f.text_field :tag_list, id: "tags", class: "form-control",
+    value: project.tag_list.to_s %>
+  <br>
+  <%= f.label nil, "This project's users:" %>
+  <p>
+    <div class="list-group form-users-list">
+      <% User.all.each do |user| %>
+        <div class="list-group-item">
+          <%= check_box_tag "project[user_ids][]", user.id, 
+            project.users.include?(user) %>
+          <%= user.name %>
+        </div>
+      <% end %>
+    </div>
   </p>
   
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <%= f.button :submit %>
 
-<%= form_tag(:method => :post) do  %>
-  
 <% end %>

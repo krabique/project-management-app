@@ -2,4 +2,5 @@
 
 <%= render 'form_new', wiki: @wiki, project: @project %>
 
-<%= link_to 'Back', project_path(params[:project_id]) %>
+<%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
+  </i> Back'), project_path(params[:project_id]) %>

@@ -17,6 +17,7 @@
 //= require jquery_ujs
 //= require toastr
 //= require cloudinary
+//= require bootsy
 //= require_tree .
 
 $(document).ready( function(){
@@ -24,7 +25,7 @@ $(document).ready( function(){
     if($.fn.cloudinary_fileupload !== undefined) {
       $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
     }
-  });    
+  });
 });
 
 $( function() {

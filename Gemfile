@@ -62,6 +62,10 @@ gem 'redcarpet'
 gem 'thinking-sphinx', '~> 3.3'
 # For bootstrap exception
 gem 'rails-assets-tether'
+# For forms
+gem 'simple_form', '~> 3.5'
+# For wysiwyg
+gem 'bootsy'
 # -- My -- end -------------------------------------
 
 

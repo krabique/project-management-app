@@ -12,6 +12,7 @@
  *
  *= require toastr
  *= require font-awesome.css
+ *= require bootsy
  */
 
 @import "bootstrap";
@@ -112,7 +113,10 @@ ul.ui-autocomplete {
 
 .form-users-list {
   max-width: 30em;
-  margin: 0 auto;
   max-height:150px;
   overflow-y: scroll;
+}
+
+.wysihtml5-sandbox {
+  height: auto !important;
 }
