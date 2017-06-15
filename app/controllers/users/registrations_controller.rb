@@ -18,9 +18,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    if params[:dark_style] && !params[:name]
+      resource.update_without_password({ "dark_style" => "#{params[:dark_style]}" })
+      redirect_to(:back)
+    else
+      super
+    end
+  end
 
   # DELETE /resource
   # def destroy
