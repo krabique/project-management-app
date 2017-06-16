@@ -35,15 +35,16 @@
               <li>
                 <button class="accordion"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
                 <div class="dropdown">
+                  Created by 
                   <% unless document.creator <= 0 %>
-                    Created by <%= link_to @users.find_by_id(document.creator).name, 
+                    <%= link_to @users.find_by_id(document.creator).name, 
                       @users.find_by_id(document.creator) %>
                   <% else %>
                     Unknown
                   <% end %>
                   at <%= document.created_at %>
                   
-                  <br>
+                  <br><br>
                   Last update by 
                   <% unless document.last_editor.nil? %>
                     <%= link_to @users.find_by_id(document.last_editor).name, 

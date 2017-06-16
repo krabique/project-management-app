@@ -30,8 +30,9 @@
               <li>
                 <button class="accordion"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
                 <div class="dropdown">
+                  Created by 
                   <% unless wiki.creator <= 0 %>
-                    Created by <%= link_to @users.find_by_id(wiki.creator).name, 
+                    <%= link_to @users.find_by_id(wiki.creator).name, 
                       @users.find_by_id(wiki.creator) %>
                   <% else %>
                     Unknown

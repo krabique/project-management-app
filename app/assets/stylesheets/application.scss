@@ -162,4 +162,6 @@ div.dropdown {
     position: absolute;
     display: none;
     background-color: #c1c1c1;
+    min-width: 10em;
+    z-index: 1;
 }
