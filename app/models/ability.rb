@@ -38,9 +38,12 @@ class Ability
     end
     
     if user.manager_role?
+      can :read, :all 
       can :manage, Project
       can :manage, Document
       can :manage, Wiki
+      can :manage, Discussion
+      can :manage, Post
     end
     
     if user.user_role?
@@ -48,6 +51,13 @@ class Ability
       if user.projects.find_by_id(project_id)
         can :manage, Document
         can :manage, Wiki
+        can [:new, :create], Post
+        can [:edit, :update], Post.where(creator: user.id)
+        #can :update, Post.where(creator: user.id)
+        #user.projects.find_by_id(project_id).
+        #u.projects.find_by_id(8).discussions.find_by_id(3).posts.find_by_creator(u.id)
+        #user.projects.find_by_id(project_id).discussions.find_by_id(discussion_id).posts.find_by_creator(user.id)
+        
       end
     end
     

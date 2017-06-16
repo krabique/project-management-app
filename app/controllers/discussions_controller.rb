@@ -12,9 +12,9 @@ class DiscussionsController < ApplicationController
   
   def create
     if create_discussion_transaction
-      redirect_to project_discussion_path(@project, @discussion), notice: 'Discussion was successfully created.'
+      redirect_to @project, notice: 'Discussion was successfully created.'
     else
-      redirect_to project_discussion_path(@project, @discussion), 
+      redirect_to @project, 
         alert: "There was an error creating discussion."
     end
   end
