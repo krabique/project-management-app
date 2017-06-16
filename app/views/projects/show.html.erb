@@ -38,9 +38,13 @@
 <br>
 <%= render "projects/discussions" %>
 <br><br>
-<%= render "projects/documents" %>
-<br><br>
-<%= render "projects/wikis" %>
-<br><br>
+<div class="row">
+  <div class="col-sm-6">
+    <%= render "projects/documents" %>
+  </div>
+  <div class="col-sm-6">
+    <%= render "projects/wikis" %>
+  </div>
+</div>
 <%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
   </i> Back to all projects'), projects_path %>

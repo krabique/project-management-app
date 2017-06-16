@@ -1,15 +1,13 @@
 <% unless @project.documents.empty? %>
   <h3 class="text-center">This project's documents</h3>
+  <% if current_user.projects.find_by_id(@project.id) || 
+    current_user.manager_role %>
+    <% unless @project.archived %>
+      <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
+        </i> New document'), new_project_document_path(@project) %>
+    <% end %>
+  <% end %>
   <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>representation</th>
-        <th>title</th>
-        <th>created by</th>
-        <th>last update by</th>
-        <th></th>
-      </tr>
-    </thead>
     <tbody>
       <% @project.documents.each do |document| %>
         <tr>
@@ -20,24 +18,6 @@
             <%= link_to document.title, 
               link_to_cloudinary(document.cloudinary_uri), 
               target: "_blank" %>
-          </td>
-          <td>
-            <% unless document.creator <= 0 %>
-              <%= link_to @users.find_by_id(document.creator).name, 
-                @users.find_by_id(document.creator) %>
-            <% else %>
-              Unknown
-            <% end %>
-             at <%= document.created_at %>
-          </td>
-          <td>
-            <% unless document.last_editor.nil? %>
-              <%= link_to @users.find_by_id(document.last_editor).name, 
-                @users.find_by_id(document.last_editor) %> 
-              at <%= document.updated_at %>
-            <% else %>
-              -
-            <% end %>
           </td>
           <td>
             <ul class="documents-controls">
@@ -52,6 +32,28 @@
                     method: :delete, data: { confirm: 'Are you sure?' } %>
                 </li>
               <% end %>
+              <li>
+                <button class="accordion"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
+                <div class="dropdown">
+                  <% unless document.creator <= 0 %>
+                    Created by <%= link_to @users.find_by_id(document.creator).name, 
+                      @users.find_by_id(document.creator) %>
+                  <% else %>
+                    Unknown
+                  <% end %>
+                  at <%= document.created_at %>
+                  
+                  <br>
+                  Last update by 
+                  <% unless document.last_editor.nil? %>
+                    <%= link_to @users.find_by_id(document.last_editor).name, 
+                      @users.find_by_id(document.last_editor) %> 
+                    at <%= document.updated_at %>
+                  <% else %>
+                    -
+                  <% end %>
+                </div>
+              </li>
             </ul>
           </td>
         </tr>
@@ -60,11 +62,4 @@
   </table>
 <% else %>
   <h4 class="text-center">Someone stole this project's documents!</h4>
-<% end %>
-<% if current_user.projects.find_by_id(@project.id) || 
-  current_user.manager_role %>
-  <% unless @project.archived %>
-    <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
-      </i> New document'), new_project_document_path(@project) %>
-  <% end %>
 <% end %>

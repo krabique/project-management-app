@@ -146,3 +146,20 @@ ul.ui-autocomplete {
   list-style: none;
   padding-left: 0px;
 }
+
+
+
+button.accordion {
+    border: none;
+    outline: none;
+    background-color: transparent; 
+    margin: 0px;
+    padding: 0px;
+    color: #0275d8;
+}
+
+div.dropdown {
+    position: absolute;
+    display: none;
+    background-color: #c1c1c1;
+}
