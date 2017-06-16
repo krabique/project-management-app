@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615185303) do
+ActiveRecord::Schema.define(version: 20170616163050) do
 
   create_table "bootsy_image_galleries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "bootsy_resource_type"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20170615185303) do
     t.datetime "updated_at"
   end
 
+  create_table "discussions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title",                     default: "UnknownTitle", null: false
+    t.text     "body",        limit: 65535
+    t.integer  "creator",                   default: 0,              null: false
+    t.integer  "last_editor"
+    t.integer  "project_id"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.index ["project_id"], name: "index_discussions_on_project_id", using: :btree
+  end
+
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "project_id"
     t.string   "cloudinary_uri"
@@ -35,6 +46,16 @@ ActiveRecord::Schema.define(version: 20170615185303) do
     t.integer  "creator",        default: 0,              null: false
     t.integer  "last_editor"
     t.index ["project_id"], name: "index_documents_on_project_id", using: :btree
+  end
+
+  create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "body",          limit: 65535,             null: false
+    t.integer  "creator",                     default: 0, null: false
+    t.integer  "last_editor"
+    t.integer  "discussion_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.index ["discussion_id"], name: "index_posts_on_discussion_id", using: :btree
   end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -114,4 +135,6 @@ ActiveRecord::Schema.define(version: 20170615185303) do
     t.index ["project_id"], name: "index_wikis_on_project_id", using: :btree
   end
 
+  add_foreign_key "discussions", "projects"
+  add_foreign_key "posts", "discussions"
 end

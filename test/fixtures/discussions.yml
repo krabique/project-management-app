@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  body: MyText
+  creator: 1
+  last_editor: 1
+  project: one
+
+two:
+  title: MyString
+  body: MyText
+  creator: 1
+  last_editor: 1
+  project: two

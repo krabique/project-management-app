@@ -1,0 +1,9 @@
+<h1>Editing Discussion</h1>
+
+<%= render 'form', discussion: @discussion, project: @project %>
+
+<br>
+<%= link_to (raw '<i class="fa fa-eye" aria-hidden="true"></i> Show'),
+  project_discussion_path(@discussion) %><br>
+<%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
+  </i> Back to project'), @discussion.project %>

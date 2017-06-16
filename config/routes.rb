@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   
   resources :projects do
     resources :wikis
     resources :documents
+    resources :discussions do
+      resources :posts
+    end
   end
   
   get 'tags/:tag', to: 'projects#index', as: :tag

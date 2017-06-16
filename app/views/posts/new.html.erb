@@ -1,0 +1,6 @@
+<h1>New Post</h1>
+
+<%= render 'form', post: @post, project: @project, discussion: @discussion %>
+
+<%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
+  </i> Back'), project_path(params[:project_id]) %>

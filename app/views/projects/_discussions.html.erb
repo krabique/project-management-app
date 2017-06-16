@@ -1,0 +1,65 @@
+<% unless @project.discussions.empty? %>
+  <h3 class="text-center">This project's discussions</h3>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th>created by</th>
+        <th>last update by</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.discussions.each do |discussion| %>
+        <tr>
+          <td>
+            <%= link_to discussion.title, project_discussion_path(@project, discussion) %>
+          </td>
+          <td>
+            <% unless discussion.creator <= 0 %>
+              <%= link_to @users.find_by_id(discussion.creator).name, 
+                @users.find_by_id(discussion.creator) %>
+            <% else %>
+              Unknown
+            <% end %>
+             at <%= discussion.created_at %>
+          </td>
+          <td>
+            <% unless discussion.last_editor.nil? %>
+              <%= link_to @users.find_by_id(discussion.last_editor).name, 
+                @users.find_by_id(discussion.last_editor) %> 
+              at <%= discussion.updated_at %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
+            <ul class="discussions-controls">
+              <% unless @project.archived %>
+                <li>
+                  <%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">
+                    </i>'), edit_project_discussion_path(@project, discussion) %>
+                </li>
+                <li>
+                  <%= link_to (raw '<i class="fa fa-times" aria-hidden="true">
+                    </i>'), project_discussion_path(@project, discussion),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+                </li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h4 class="text-center">Noone wants to talk to you, so there are no discussions!</h4>
+<% end %>
+
+<% if current_user.projects.find_by_id(@project.id) || 
+  current_user.manager_role %>
+  <% unless @project.archived %>
+    <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
+      </i> New discussion'), new_project_discussion_path(@project) %>
+  <% end %>
+<% end %>
