@@ -44,14 +44,12 @@
                   <% end %>
                   at <%= document.created_at %>
                   
+                  <% unless document.last_editor.nil? %>
                   <br><br>
                   Last update by 
-                  <% unless document.last_editor.nil? %>
                     <%= link_to @users.find_by_id(document.last_editor).name, 
                       @users.find_by_id(document.last_editor) %> 
                     at <%= document.updated_at %>
-                  <% else %>
-                    -
                   <% end %>
                 </div>
               </li>
