@@ -167,6 +167,9 @@ div.dropdown {
     border: 1px solid black;
 }
 
-.navbar-toggler-right {
-  right: -3rem;
+
+@media screen and (max-width: 769px) {
+    .container {
+        width: 100%;
+    }
 }
