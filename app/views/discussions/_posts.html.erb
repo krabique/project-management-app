@@ -1,40 +1,29 @@
 <% unless @discussion.posts.empty? %>
   <h3 class="text-center">This discussion's posts</h3>
   <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>body</th>
-        <th>created by</th>
-        <th>last update by</th>
-        <th></th>
-      </tr>
-    </thead>
     <tbody>
       <% @discussion.posts.each do |post| %>
         <tr>
           <td>
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <%= markdown(post.body) %>
-              </div>
-            </div>
-          </td>
-          <td>
             <% unless post.creator <= 0 %>
+              <%= image_tag(@users.find_by_id(post.creator).avatar.url(:thumb),
+                :class => "user-thumb-image user-list") %>
               <%= link_to @users.find_by_id(post.creator).name, 
                 @users.find_by_id(post.creator) %>
             <% else %>
               Unknown
             <% end %>
-             at <%= post.created_at %>
-          </td>
-          <td>
+            posted at <%= post.created_at %>
+            
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <%= markdown(post.body) %>
+              </div>
+            </div>
             <% unless post.last_editor.nil? %>
               <%= link_to @users.find_by_id(post.last_editor).name, 
                 @users.find_by_id(post.last_editor) %> 
-              at <%= post.updated_at %>
-            <% else %>
-              -
+              edited at <%= post.updated_at %>
             <% end %>
           </td>
           <td>
@@ -42,12 +31,15 @@
               <% unless @project.archived %>
                 <li>
                   <%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">
-                    </i>'), edit_project_discussion_post_path(@project, @discussion, post) if post.creator == current_user.id %>
+                    </i>'), edit_project_discussion_post_path(@project, 
+                    @discussion, post) if (can? :manage, Post) || 
+                    post.creator == current_user.id %>
                 </li>
                 <li>
                   <%= link_to (raw '<i class="fa fa-times" aria-hidden="true">
-                    </i>'), project_discussion_post_path(@project, @discussion, post),
-                    method: :delete, data: { confirm: 'Are you sure?' } if can? :manage, Post %>
+                    </i>'), project_discussion_post_path(@project, 
+                    @discussion, post), method: :delete, data: { confirm: 
+                    'Are you sure?' } if can? :manage, Post %>
                 </li>
               <% end %>
             </ul>
@@ -64,7 +56,8 @@
   current_user.manager_role %>
   <% unless @project.archived %>
     <h5>Add new post:</h5>
-    <%= render 'posts/form', post: Post.new, project: @project, discussion: @discussion %>
+    <%= render 'posts/form', post: Post.new, project: @project, 
+      discussion: @discussion %>
     
   <% end %>
 <% end %>
