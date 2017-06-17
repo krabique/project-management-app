@@ -18,9 +18,9 @@
               Unknown
             <% end %>
             at <%= discussion.created_at %>
+            <% unless discussion.last_editor.nil? %>
             <br>
             Last update by 
-            <% unless discussion.last_editor.nil? %>
               <%= link_to @users.find_by_id(discussion.last_editor).name, 
                 @users.find_by_id(discussion.last_editor) %> 
               at <%= discussion.updated_at %>
