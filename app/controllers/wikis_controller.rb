@@ -1,11 +1,9 @@
 class WikisController < ApplicationController
-  before_action :set_wiki, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  before_action :set_project, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  load_and_authorize_resource
-  before_action :archived?, only: [:new, :create, :edit, :update, :destroy]
-
+  load_and_authorize_resource :project
+  load_and_authorize_resource :wiki, :through => :project
+  before_action :archived?
+  skip_before_action :archived?, only: [:show]
+  
   def new
     @wiki = Wiki.new
   end
@@ -19,10 +17,6 @@ class WikisController < ApplicationController
     end
   end
   
-  def index
-    @wikis = Wiki.all
-  end
-  
   def show
     @users = User.all
   end
@@ -32,7 +26,7 @@ class WikisController < ApplicationController
   
   def update
     if update_wiki_transaction
-      redirect_to @wiki.project, notice: 'Wiki was successfully updated.'
+      redirect_to project_wiki_path(@project, @wiki), notice: 'Wiki was successfully updated.'
     else
       redirect_to edit_project_wiki(@project, @wiki), 
         alert: 'There was an error updating wiki.'
@@ -47,18 +41,6 @@ class WikisController < ApplicationController
   
   
   private
-  
-  def set_project
-    unless @project = @wiki.project
-      @project = Project.find_by(id: params[:project_id])
-    end
-  end
-  
-  def set_wiki
-    unless @wiki = Wiki.find_by(id: params[:id])
-      @wiki = Wiki.new
-    end
-  end
   
   def wiki_params
     params.require(:wiki).permit(:title, :body)

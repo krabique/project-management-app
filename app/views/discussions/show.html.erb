@@ -38,7 +38,8 @@
 
 <%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">
   </i> Edit'), 
-  edit_project_discussion_path(@discussion) if can? :manage, Discussion %>
+  edit_project_discussion_path(@project,
+  @discussion) if can? :manage, Discussion %>
   <br>
 <%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
   </i> Back to project'), @discussion.project %>

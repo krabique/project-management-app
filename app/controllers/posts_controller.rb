@@ -1,12 +1,9 @@
 class PostsController < ApplicationController
-  before_action :set_post, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  before_action :set_discussion, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  before_action :set_project, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  load_and_authorize_resource
-  before_action :archived?, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource :project
+  load_and_authorize_resource :discussion, :through => :project
+  load_and_authorize_resource :post, :through => :discussion
+  before_action :archived?
+  skip_before_action :archived?, only: [:show]
 
   def new
     @post = Post.new
@@ -49,24 +46,6 @@ class PostsController < ApplicationController
   
   
   private
-  
-  def set_project
-    unless @project = @discussion.project
-      @project = Project.find_by(id: params[:project_id])
-    end
-  end
-  
-  def set_discussion
-    unless @discussion = Discussion.find_by(id: params[:discussion_id])
-      @discussion = Discussion.new
-    end
-  end
-  
-  def set_post
-    unless @post = Post.find_by(id: params[:id])
-      @post = Post.new
-    end
-  end
   
   def post_params
     params.require(:post).permit(:body)

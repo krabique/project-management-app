@@ -1,10 +1,8 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  before_action :set_project, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  load_and_authorize_resource
-  before_action :archived?, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource :project
+  load_and_authorize_resource :document, :through => :project
+  before_action :archived?
+  skip_before_action :archived?, only: [:show]
   
   def new
     @document = Document.new
@@ -45,18 +43,6 @@ class DocumentsController < ApplicationController
   
   
   private
-  
-  def set_project
-    unless @project = @document.project
-      @project = Project.find_by(id: params[:project_id])
-    end
-  end
-  
-  def set_document
-    unless @document = Document.find_by(id: params[:id])
-      @document = Document.new
-    end
-  end
   
   def document_params
     params.require(:document).permit(:title, :cloudinary_uri, :creator, 

@@ -1,11 +1,9 @@
 class DiscussionsController < ApplicationController
-  before_action :set_discussion, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  before_action :set_project, 
-    only: [:show, :edit, :update, :destroy, :new, :create]
-  load_and_authorize_resource
-  before_action :archived?, only: [:new, :create, :edit, :update, :destroy]
-
+  load_and_authorize_resource :project
+  load_and_authorize_resource :discussion, :through => :project
+  before_action :archived?
+  skip_before_action :archived?, only: [:show]
+  
   def new
     @discussion = Discussion.new
   end
@@ -17,10 +15,6 @@ class DiscussionsController < ApplicationController
       redirect_to @project, 
         alert: "There was an error creating discussion."
     end
-  end
-  
-  def index
-    @discussions = Discussion.all
   end
   
   def show
@@ -47,18 +41,6 @@ class DiscussionsController < ApplicationController
   
   
   private
-  
-  def set_project
-    unless @project = @discussion.project
-      @project = Project.find_by(id: params[:project_id])
-    end
-  end
-  
-  def set_discussion
-    unless @discussion = Discussion.find_by(id: params[:id])
-      @discussion = Discussion.new
-    end
-  end
   
   def discussion_params
     params.require(:discussion).permit(:title, :body)

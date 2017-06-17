@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update]
   load_and_authorize_resource
   before_action(only: [:update]) { archived? project_params[:archived] }
 
