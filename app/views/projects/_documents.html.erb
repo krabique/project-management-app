@@ -1,11 +1,11 @@
 <% unless @project.documents.empty? %>
   <h3 class="text-center">This project's documents</h3>
+  <% unless @project.archived %>
+    <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
+      </i> New document'), new_project_document_path(@project) %>
+  <% end %>
   <% if current_user.projects.find_by_id(@project.id) || 
     current_user.manager_role %>
-    <% unless @project.archived %>
-      <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
-        </i> New document'), new_project_document_path(@project) %>
-    <% end %>
   <% end %>
   <table class="table table-striped table-hover">
     <tbody>
@@ -63,4 +63,8 @@
   </table>
 <% else %>
   <h4 class="text-center">Someone stole this project's documents!</h4>
+  <% unless @project.archived %>
+    <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
+      </i> New document'), new_project_document_path(@project) %>
+  <% end %>
 <% end %>
