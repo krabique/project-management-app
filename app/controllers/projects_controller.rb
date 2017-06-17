@@ -17,8 +17,8 @@ class ProjectsController < ApplicationController
     if params[:tag]
       @projects = Project.tagged_with(params[:tag]).page(params[:page]).per(5)
     elsif params[:search]
-      #@projects = Project.search(params[:search]).page(params[:page]).per(10)
-      @projects = Kaminari.paginate_array(Project.search(params[:search])).page(params[:page]).per(5)
+      @projects = Kaminari.paginate_array(
+        Project.search(params[:search]) ).page(params[:page]).per(5)
     else
       @projects = Project.all.page(params[:page]).per(5)
     end
