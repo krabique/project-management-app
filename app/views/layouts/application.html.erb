@@ -44,10 +44,9 @@
               <%= link_to('All Projects', projects_path, 
                 :class => "nav-link") %>
             </li>
-              <% if current_user.superadmin_role? ||
-                current_user.manager_role? %>
+              <% if (can? :access, :rails_admin) %>
                 <li class="nav-item active">
-                  <%= link_to('Admin Dashboard', rails_admin_path, 
+                  <%= link_to('Admin', rails_admin_path, 
                     :class => "nav-link") %>
                 </li>
               <% end %>
