@@ -10,7 +10,7 @@
   <% else %>
     <h3 class="text-center">All Projects</h3>
   <% end %>
-  
+  <p><%= page_entries_info @projects %></p>
   <% @projects.each do |project| %>
     <div class="panel panel-default">
       <div class="panel-body">
@@ -20,7 +20,12 @@
       </div>
     </div>
   <% end %>
+  
+  <p><%= paginate @projects %></p>
+  
   <% unless current_page?(projects_path) %>
-    <%= link_to 'Back to all projects', projects_path %>
+    <%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
+  </i> Back to all projects'), projects_path %>
+  
   <% end %>
 </div>

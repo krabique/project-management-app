@@ -4,6 +4,7 @@ class Project < ApplicationRecord
   has_many :documents
   has_many :wikis
   has_many :discussions
+  paginates_per 5
 
   after_save ThinkingSphinx::RealTime.callback_for(:project)
 end

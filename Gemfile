@@ -66,6 +66,8 @@ gem 'rails-assets-tether'
 gem 'simple_form', '~> 3.5'
 # For wysiwyg
 gem 'bootsy'
+# For pagination
+gem 'kaminari'
 # -- My -- end -------------------------------------
 
 
