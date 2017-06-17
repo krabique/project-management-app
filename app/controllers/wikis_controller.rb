@@ -5,7 +5,6 @@ class WikisController < ApplicationController
   skip_before_action :archived?, only: [:show]
   
   def new
-    @wiki = Wiki.new
   end
   
   def create

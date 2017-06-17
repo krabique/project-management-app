@@ -5,7 +5,6 @@ class DiscussionsController < ApplicationController
   skip_before_action :archived?, only: [:show]
   
   def new
-    @discussion = Discussion.new
   end
   
   def create

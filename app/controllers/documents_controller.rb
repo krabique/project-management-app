@@ -5,7 +5,6 @@ class DocumentsController < ApplicationController
   skip_before_action :archived?, only: [:show]
   
   def new
-    @document = Document.new
   end
   
   def create

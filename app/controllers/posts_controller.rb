@@ -6,7 +6,6 @@ class PostsController < ApplicationController
   skip_before_action :archived?, only: [:show]
 
   def new
-    @post = Post.new
   end
   
   def create
