@@ -43,7 +43,7 @@ class Ability
       can :manage, Document
       can :manage, Wiki
       can :manage, Discussion
-      can :manage, Post
+      can [:new, :create, :edit, :update], Post
     end
     
     if user.user_role?

@@ -42,12 +42,12 @@
               <% unless @project.archived %>
                 <li>
                   <%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">
-                    </i>'), edit_project_discussion_post_path(@project, @discussion, post) %>
+                    </i>'), edit_project_discussion_post_path(@project, @discussion, post) if post.creator == current_user.id %>
                 </li>
                 <li>
                   <%= link_to (raw '<i class="fa fa-times" aria-hidden="true">
                     </i>'), project_discussion_post_path(@project, @discussion, post),
-                    method: :delete, data: { confirm: 'Are you sure?' } %>
+                    method: :delete, data: { confirm: 'Are you sure?' } if can? :manage, Post %>
                 </li>
               <% end %>
             </ul>
@@ -63,7 +63,8 @@
 <% if current_user.projects.find_by_id(@project.id) || 
   current_user.manager_role %>
   <% unless @project.archived %>
-    <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
-      </i> New post'), new_project_discussion_post_path(@project, @discussion) %>
+    <h5>Add new post:</h5>
+    <%= render 'posts/form', post: Post.new, project: @project, discussion: @discussion %>
+    
   <% end %>
 <% end %>
