@@ -3,7 +3,8 @@ class HomeController < ApplicationController
   
   def index
     @projects = Project.all
-    
+    @feeds = Feed.all
+    @users = User.all
     if current_user
       @my_projects = current_user.projects
     end

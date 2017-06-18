@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616163050) do
+ActiveRecord::Schema.define(version: 20170618220347) do
 
   create_table "bootsy_image_galleries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "bootsy_resource_type"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 20170616163050) do
     t.integer  "creator",        default: 0,              null: false
     t.integer  "last_editor"
     t.index ["project_id"], name: "index_documents_on_project_id", using: :btree
+  end
+
+  create_table "feeds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id",                  default: 0,               null: false
+    t.string   "action",                   default: "UnknownAction", null: false
+    t.integer  "project"
+    t.text     "body",       limit: 65535
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   create_table "posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

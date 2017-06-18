@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.create(project_params)
     if @project.valid?
+      create_feed('create')
       redirect_to @project, notice: 'Project was successfully created.'
     else
       render :new
@@ -35,6 +36,7 @@ class ProjectsController < ApplicationController
   def update
     params[:project][:user_ids] ||= []
     if @project.update(project_params)
+      create_feed('update')
       redirect_to @project, notice: 'Project was successfully updated.'
     else
       render :edit

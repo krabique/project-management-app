@@ -3,18 +3,12 @@
     <div class="panel-body">
       <h3 class="text-center">Live Feed</h3>
       <div class="list-group live-feed">
-        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item">Morbi leo risus</a>
-        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item">Vestibulum at eros</a>
-        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item">Morbi leo risus</a>
-        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item">Vestibulum at eros</a>
-        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item">Morbi leo risus</a>
-        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-        <a href="#" class="list-group-item">Vestibulum at eros</a>
+        
+        <% @feeds.reverse_each do |feed| %>
+          <div class="list-group-item">
+            <%= link_to @users.find_by_id(feed.user_id).name, @users.find_by_id(feed.user_id) %>&nbsp;has <%= feed.action %>d&nbsp; <%= link_to @projects.find_by_id(feed.project).title, @projects.find_by_id(feed.project) %>&nbsp;at <%= feed.created_at %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

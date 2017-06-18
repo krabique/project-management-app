@@ -22,6 +22,14 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def create_feed(action, body=nil)
+    feed = Feed.new
+    feed.user_id = current_user.id
+    feed.action = action
+    feed.project = @project.id
+    feed.body = body
+    feed.save!
+  end
   
   private
   
