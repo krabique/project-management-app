@@ -8,11 +8,14 @@ App.discussion = App.cable.subscriptions.create "DiscussionChannel",
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
     unless data.body.blank?
-      $('#' + data.discussion_id + '-posts-table-tbody').append '<tr>' + '<td>' +
-        data.avatar + data.link_to_user + ' posted at ' + data.created_at +
-        '<div class="panel panel-default">' +
-        '<div class="panel-body">' + data.body +
-        '</div>' +
-        '</div>' + '<td></td>' +
-        '</tr>' +
-        '</td>'
+      if $('#' + data.discussion_id + '-posts-table-tbody').length is 0
+        location.reload();
+      else
+        $('#' + data.discussion_id + '-posts-table-tbody').append '<tr>' + '<td>' +
+          data.avatar + data.link_to_user + ' posted at ' + data.created_at +
+          '<div class="panel panel-default">' +
+          '<div class="panel-body">' + data.body +
+          '</div>' +
+          '</div>' + '<td></td>' +
+          '</tr>' +
+          '</td>'
