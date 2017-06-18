@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   
   def create
     if create_post_transaction
-      broadcast_changes
+      broadcast_create
     else
       redirect_to new_project_post(@discussion), 
         alert: "There was an error creating post."
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
   
   private
   
-  def broadcast_changes
+  def broadcast_create
     ActionCable.server.broadcast 'discussion_channel',
       body:  view_context.markdown(@post.body),
       link_to_user: (view_context.link_to User.find_by_id(@post.creator).name, 
@@ -54,7 +54,8 @@ class PostsController < ApplicationController
       avatar: (view_context.image_tag(User.find_by_id(@post.creator).avatar.url(:thumb),
               :class => "user-thumb-image user-list")),
       creator_name: User.find_by_id(@post.creator).name,
-      created_at: @post.created_at.to_s
+      created_at: @post.created_at.to_s,
+      discussion_id: @discussion.id
     head :ok
   end
   
