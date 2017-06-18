@@ -29,8 +29,7 @@ class DocumentsController < ApplicationController
       redirect_to @document.project, 
         notice: 'Document was successfully updated.'
     else
-      render :edit, 
-        alert: 'There was an error updating the document.'
+      render :edit
     end
   end
   

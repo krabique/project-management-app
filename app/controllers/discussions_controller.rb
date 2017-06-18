@@ -24,7 +24,8 @@ class DiscussionsController < ApplicationController
   
   def update
     if safe_update_discussion
-      redirect_to project_discussion_path(@project, @discussion), notice: 'Discussion was successfully updated.'
+      redirect_to project_discussion_path(@project, @discussion), 
+        notice: 'Discussion was successfully updated.'
     else
       render :edit
     end

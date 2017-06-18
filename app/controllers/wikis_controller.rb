@@ -11,8 +11,7 @@ class WikisController < ApplicationController
     if safe_create_wiki
       redirect_to @project, notice: 'Wiki was successfully created.'
     else
-      render :new,
-        alert: "There was an error creating wiki."
+      render :new
     end
   end
   
@@ -25,10 +24,10 @@ class WikisController < ApplicationController
   
   def update
     if safe_update_wiki
-      redirect_to project_wiki_path(@project, @wiki), notice: 'Wiki was successfully updated.'
+      redirect_to project_wiki_path(@project, @wiki), 
+        notice: 'Wiki was successfully updated.'
     else
-      render :edit, 
-        alert: 'There was an error updating wiki.'
+      render :edit
     end
   end
   

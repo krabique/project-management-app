@@ -29,9 +29,8 @@ class PostsController < ApplicationController
   
   def update
     if safe_update_post
-      render :js => "window.location = '#{project_discussion_path(@project, @discussion)}'",
-      #redirect_to project_discussion_path(@project, @discussion), 
-        notice: 'Post was successfully updated.'
+      render :js => "window.location = '#{project_discussion_path(@project, 
+        @discussion)}'", notice: 'Post was successfully updated.'
     else
       render :edit
     end
