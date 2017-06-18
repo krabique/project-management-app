@@ -48,7 +48,7 @@ class PostsController < ApplicationController
   
   def broadcast_changes
     ActionCable.server.broadcast 'discussion_channel',
-      body:  @post.body,
+      body:  view_context.markdown(@post.body),
       link_to_user: (view_context.link_to User.find_by_id(@post.creator).name, 
               User.find_by_id(@post.creator)),
       avatar: (view_context.image_tag(User.find_by_id(@post.creator).avatar.url(:thumb),
