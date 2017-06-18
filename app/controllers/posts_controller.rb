@@ -54,7 +54,8 @@ class PostsController < ApplicationController
               :thumb), :class => "user-thumb-image user-list")),
       creator_name: User.find_by_id(@post.creator).name,
       created_at: @post.created_at.to_s,
-      discussion_id: @discussion.id
+      discussion_id: @discussion.id,
+      odd_or_even: @discussion.posts.count
     head :ok
   end
   
