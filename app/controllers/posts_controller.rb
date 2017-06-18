@@ -9,11 +9,10 @@ class PostsController < ApplicationController
   end
   
   def create
-    if create_post_transaction
+    if safe_create_post
       broadcast_create
     else
-      redirect_to new_project_post(@discussion), 
-        alert: "There was an error creating post."
+      render :new
     end
   end
   
@@ -29,11 +28,12 @@ class PostsController < ApplicationController
   end
   
   def update
-    if update_post_transaction
-      redirect_to project_discussion_path(@project, @discussion), notice: 'Post was successfully updated.'
+    if safe_update_post
+      render :js => "window.location = '#{project_discussion_path(@project, @discussion)}'",
+      #redirect_to project_discussion_path(@project, @discussion), 
+        notice: 'Post was successfully updated.'
     else
-      redirect_to edit_project_post(@project, @post), 
-        alert: 'There was an error updating post.'
+      render :edit
     end
   end
   
@@ -51,8 +51,8 @@ class PostsController < ApplicationController
       body:  view_context.markdown(@post.body),
       link_to_user: (view_context.link_to User.find_by_id(@post.creator).name, 
               User.find_by_id(@post.creator)),
-      avatar: (view_context.image_tag(User.find_by_id(@post.creator).avatar.url(:thumb),
-              :class => "user-thumb-image user-list")),
+      avatar: (view_context.image_tag(User.find_by_id(@post.creator).avatar.url(
+              :thumb), :class => "user-thumb-image user-list")),
       creator_name: User.find_by_id(@post.creator).name,
       created_at: @post.created_at.to_s,
       discussion_id: @discussion.id
@@ -71,6 +71,14 @@ class PostsController < ApplicationController
     end
   end
   
+  def safe_update_post
+    begin
+      update_post_transaction
+    rescue ActiveRecord::RecordInvalid
+      return false
+    end    
+  end
+  
   def create_post_transaction
     Post.transaction do
       @post = @discussion.posts.new(post_params)
@@ -79,5 +87,13 @@ class PostsController < ApplicationController
       return true
     end
   end
+  
+  def safe_create_post
+    begin
+      create_post_transaction
+    rescue ActiveRecord::RecordInvalid
+      return false
+    end     
+  end  
   
 end

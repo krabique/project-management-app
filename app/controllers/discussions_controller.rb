@@ -8,11 +8,10 @@ class DiscussionsController < ApplicationController
   end
   
   def create
-    if create_discussion_transaction
+    if safe_create_discussion
       redirect_to @project, notice: 'Discussion was successfully created.'
     else
-      redirect_to @project, 
-        alert: "There was an error creating discussion."
+      render :new
     end
   end
   
@@ -24,11 +23,10 @@ class DiscussionsController < ApplicationController
   end
   
   def update
-    if update_discussion_transaction
+    if safe_update_discussion
       redirect_to project_discussion_path(@project, @discussion), notice: 'Discussion was successfully updated.'
     else
-      redirect_to edit_project_discussion_path(@project, @discussion), 
-        alert: 'There was an error updating discussion.'
+      render :edit
     end
   end
   
@@ -45,6 +43,14 @@ class DiscussionsController < ApplicationController
     params.require(:discussion).permit(:title, :body)
   end
   
+  def safe_update_discussion
+    begin
+      update_discussion_transaction
+    rescue ActiveRecord::RecordInvalid
+      return false
+    end    
+  end
+  
   def update_discussion_transaction
     Document.transaction do
       @discussion.update!(discussion_params)
@@ -53,10 +59,18 @@ class DiscussionsController < ApplicationController
     end
   end
   
+  def safe_create_discussion
+    begin
+      create_discussion_transaction
+    rescue ActiveRecord::RecordInvalid
+      return false
+    end     
+  end
+  
   def create_discussion_transaction
     Discussion.transaction do
       @project.discussions.create!(discussion_params)
-                    .update!(creator: current_user.id)
+                          .update!(creator: current_user.id)
       return true
     end
   end

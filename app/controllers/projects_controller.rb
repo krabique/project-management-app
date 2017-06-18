@@ -6,7 +6,8 @@ class ProjectsController < ApplicationController
   end
   
   def create
-    if @project = Project.create(project_params)
+    @project = Project.create(project_params)
+    if @project.valid?
       redirect_to @project, notice: 'Project was successfully created.'
     else
       render :new

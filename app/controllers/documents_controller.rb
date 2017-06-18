@@ -29,7 +29,7 @@ class DocumentsController < ApplicationController
       redirect_to @document.project, 
         notice: 'Document was successfully updated.'
     else
-      redirect_to edit_project_document(@project, @document), 
+      render :edit, 
         alert: 'There was an error updating the document.'
     end
   end
@@ -49,10 +49,14 @@ class DocumentsController < ApplicationController
   end
   
   def update_document_transaction
-    Document.transaction do
-      @document.update!(document_params)
-      @document.update!(last_editor: current_user.id)
-      return true
+    begin
+      Document.transaction do
+        @document.update!(document_params)
+        @document.update!(last_editor: current_user.id)
+        return true
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      return false
     end
   end
   

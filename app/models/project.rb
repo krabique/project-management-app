@@ -5,6 +5,9 @@ class Project < ApplicationRecord
   has_many :wikis
   has_many :discussions
   paginates_per 5
+  
+  validates :title, presence: true
+  validates :description, presence: true
 
   after_save ThinkingSphinx::RealTime.callback_for(:project)
 end

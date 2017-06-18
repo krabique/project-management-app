@@ -8,10 +8,10 @@ class WikisController < ApplicationController
   end
   
   def create
-    if create_wiki_transaction
+    if safe_create_wiki
       redirect_to @project, notice: 'Wiki was successfully created.'
     else
-      redirect_to new_project_wiki(@project), 
+      render :new,
         alert: "There was an error creating wiki."
     end
   end
@@ -24,10 +24,10 @@ class WikisController < ApplicationController
   end
   
   def update
-    if update_wiki_transaction
+    if safe_update_wiki
       redirect_to project_wiki_path(@project, @wiki), notice: 'Wiki was successfully updated.'
     else
-      redirect_to edit_project_wiki(@project, @wiki), 
+      render :edit, 
         alert: 'There was an error updating wiki.'
     end
   end
@@ -45,11 +45,27 @@ class WikisController < ApplicationController
     params.require(:wiki).permit(:title, :body)
   end
   
+  def safe_update_wiki
+    begin
+      update_wiki_transaction
+    rescue ActiveRecord::RecordInvalid
+      return false
+    end
+  end
+  
   def update_wiki_transaction
     Document.transaction do
       @wiki.update!(wiki_params)
       @wiki.update!(last_editor: current_user.id)
       return true
+    end
+  end
+  
+  def safe_create_wiki
+    begin
+      create_wiki_transaction
+    rescue ActiveRecord::RecordInvalid
+      return false
     end
   end
   

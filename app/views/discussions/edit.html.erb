@@ -4,6 +4,6 @@
 
 <br>
 <%= link_to (raw '<i class="fa fa-eye" aria-hidden="true"></i> Show'),
-  project_discussion_path(@discussion) %><br>
+  project_discussion_path(@project, @discussion) %><br>
 <%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
   </i> Back to project'), @discussion.project %>
