@@ -35,8 +35,11 @@ class DocumentsController < ApplicationController
   
   def destroy
     @document = Document.find(params[:id])
-    @document.destroy
-    redirect_to @project
+    if safe_destroy_document
+      redirect_to @project, notice: "Document was successfully deleted."
+    else
+      redirect_to @project, alert: "There was an error deleting the document."
+    end
   end
   
   
@@ -67,4 +70,27 @@ class DocumentsController < ApplicationController
     } )
   end
   
+  def safe_destroy_document
+    begin
+      destroy_document_transaction
+    rescue Exception
+      return false
+    end
+  end
+  
+  def destroy_document_transaction
+    Document.transaction do
+      cl_document_name = File.basename(@document.cloudinary_uri, ".*")
+      cl_delete_hash = Cloudinary::Api.delete_resources(cl_document_name)
+      destroy_if_ok(cl_document_name, cl_delete_hash)
+    end
+  end
+  
+  def destroy_if_ok(cl_document_name, cl_delete_hash)
+    if cl_delete_hash['deleted'][cl_document_name] == "deleted"
+      @document.destroy!
+    else
+      raise Exception
+    end
+  end
 end
