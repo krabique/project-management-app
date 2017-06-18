@@ -55,6 +55,7 @@ class PostsController < ApplicationController
               :class => "user-thumb-image user-list")),
       creator_name: User.find_by_id(@post.creator).name,
       created_at: @post.created_at.to_s
+    head :ok
   end
   
   def post_params
