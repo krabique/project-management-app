@@ -1,7 +1,7 @@
 <% unless @discussion.posts.empty? %>
   <h3 class="text-center">This discussion's posts</h3>
   <table class="table table-striped">
-    <tbody>
+    <tbody id="posts-table-tbody">
       <% @discussion.posts.each do |post| %>
         <tr>
           <td>

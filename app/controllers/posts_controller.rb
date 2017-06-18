@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   
   def create
     if create_post_transaction
-      redirect_to project_discussion_path(@project, @discussion), notice: 'Post was successfully created.'
+      broadcast_changes
     else
       redirect_to new_project_post(@discussion), 
         alert: "There was an error creating post."
@@ -46,6 +46,17 @@ class PostsController < ApplicationController
   
   private
   
+  def broadcast_changes
+    ActionCable.server.broadcast 'discussion_channel',
+      body:  @post.body,
+      link_to_user: (view_context.link_to User.find_by_id(@post.creator).name, 
+              User.find_by_id(@post.creator)),
+      avatar: (view_context.image_tag(User.find_by_id(@post.creator).avatar.url(:thumb),
+              :class => "user-thumb-image user-list")),
+      creator_name: User.find_by_id(@post.creator).name,
+      created_at: @post.created_at.to_s
+  end
+  
   def post_params
     params.require(:post).permit(:body)
   end
@@ -60,8 +71,9 @@ class PostsController < ApplicationController
   
   def create_post_transaction
     Post.transaction do
-      @discussion.posts.create!(post_params)
-                       .update!(creator: current_user.id)
+      @post = @discussion.posts.new(post_params)
+      @post.save!
+      @post.update!(creator: current_user.id)
       return true
     end
   end

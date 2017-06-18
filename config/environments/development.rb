@@ -77,4 +77,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   # -- from devise guide -- end --
+  
+  config.action_cable.allowed_request_origins = [
+    'https://pm-app-xen0n48.c9users.io' ]
 end
