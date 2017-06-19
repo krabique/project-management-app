@@ -6,10 +6,18 @@
         
         <% @feeds.reverse_each do |feed| %>
           <div class="list-group-item">
-            <%= link_to @users.find_by_id(feed.user_id).name, @users.find_by_id(feed.user_id) %>&nbsp;has <%= feed.action %>d&nbsp; <%= link_to @projects.find_by_id(feed.project).title, @projects.find_by_id(feed.project) %>&nbsp;at <%= feed.created_at %>
+            <% unless feed.body %>
+              <%= link_to @users.find_by_id(feed.user_id).name, @users.find_by_id(feed.user_id) %>&nbsp;has <%= feed.action %>d&nbsp; <%= link_to @projects.find_by_id(feed.project).title, @projects.find_by_id(feed.project) %>&nbsp;at <%= feed.created_at %>
+            <% else %>
+              <%= link_to @users.find_by_id(feed.user_id).name, @users.find_by_id(feed.user_id) %>&nbsp;has <%= feed.action %>ed: "<%= feed.body %>" at <%= feed.created_at %>
+            <% end %>
           </div>
         <% end %>
       </div>
+      <br>
+      <%= link_to (raw '<i class="fa fa-plus-circle" aria-hidden="true">
+        </i> Create a feed post'), new_feed_path if 
+        (can? :new, Feed) %>
     </div>
   </div>
 </div>

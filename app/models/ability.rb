@@ -44,6 +44,7 @@ class Ability
       can :manage, Wiki
       can :manage, Discussion
       can [:new, :create, :edit, :update], Post
+      can [:new, :create], Feed
     end
     
     if user.user_role?

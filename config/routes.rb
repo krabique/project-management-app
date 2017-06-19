@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :feeds, only: [:new, :create]
+  #get 'feeds/new'
+
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   
   resources :projects do
