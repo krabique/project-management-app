@@ -4,9 +4,6 @@
     <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
       </i> New document'), new_project_document_path(@project) %>
   <% end %>
-  <% if current_user.projects.find_by_id(@project.id) || 
-    current_user.manager_role %>
-  <% end %>
   <table class="table table-striped table-hover">
     <tbody>
       <% @project.documents.each do |document| %>
@@ -37,20 +34,12 @@
                 <div class="dropdown">
                   Created by 
                   <% unless document.creator <= 0 %>
-                    <%= link_to @users.find_by_id(document.creator).name, 
-                      @users.find_by_id(document.creator) %>
+                    <%= link_to document.user.name, 
+                      document.user %>
                   <% else %>
                     Unknown
                   <% end %>
                   at <%= document.created_at %>
-                  
-                  <% unless document.last_editor.nil? %>
-                  <br><br>
-                  Last update by 
-                    <%= link_to @users.find_by_id(document.last_editor).name, 
-                      @users.find_by_id(document.last_editor) %> 
-                    at <%= document.updated_at %>
-                  <% end %>
                 </div>
               </li>
             </ul>

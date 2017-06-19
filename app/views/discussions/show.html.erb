@@ -13,27 +13,16 @@
 
 <p>
   <strong>Creator: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-  <% if @users.find_by_id(@discussion.creator) %>
-      <%= image_tag(@users.find_by_id(@discussion.creator).avatar.url(:thumb),
+  <% if @discussion.user %>
+      <%= image_tag(@discussion.user.avatar.url(:thumb),
         :class => "user-thumb-image user-list") %>
-      <%= link_to(@users.find_by_id(@discussion.creator).name, 
-        @users.find_by_id(@discussion.creator)) %>
+      <%= link_to(@discussion.user.name, 
+        @discussion.user) %>
         at <%= @discussion.created_at %>
   <% else %>
     Unknown
   <% end %>
 </p>
-
-<% unless @discussion.last_editor.nil? %>
-  <p>
-    <strong>Last editor:&nbsp;</strong>
-    <%= image_tag(@users.find_by_id(@discussion.last_editor).avatar.url(:thumb),
-      :class => "user-thumb-image user-list") %>
-    <%= link_to(@users.find_by_id(@discussion.last_editor).name, 
-      @users.find_by_id(@discussion.last_editor)) %>
-    at <%= @discussion.updated_at %>
-  </p>
-<% end %>
 
 
 <%= link_to (raw '<i class="fa fa-pencil" aria-hidden="true">

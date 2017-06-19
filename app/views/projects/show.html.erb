@@ -1,3 +1,5 @@
+<% p "------start----- projects show view --------------------------------------" %>
+
 <% if @project.archived %>
   <p>
     <i class="fa fa-snowflake-o" aria-hidden="true"></i>
@@ -48,3 +50,4 @@
 </div>
 <%= link_to (raw '<i class="fa fa-arrow-left" aria-hidden="true">
   </i> Back to all projects'), projects_path %>
+<% p "------finish----- projects show view --------------------------------------------" %>

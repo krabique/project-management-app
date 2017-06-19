@@ -12,19 +12,12 @@
             <br>
             Created by 
             <% unless discussion.creator <= 0 %>
-              <%= link_to @users.find_by_id(discussion.creator).name, 
-                @users.find_by_id(discussion.creator) %>
+              <%= link_to discussion.user.name, 
+                discussion.user %>
             <% else %>
               Unknown
             <% end %>
             at <%= discussion.created_at %>
-            <% unless discussion.last_editor.nil? %>
-            <br>
-            Last update by 
-              <%= link_to @users.find_by_id(discussion.last_editor).name, 
-                @users.find_by_id(discussion.last_editor) %> 
-              at <%= discussion.updated_at %>
-            <% end %>
             
           </td>
           <td align="right">
@@ -53,11 +46,10 @@
   so there are no discussions!</h4>
 <% end %>
 
-<% if current_user.projects.find_by_id(@project.id) || 
-  current_user.manager_role %>
+<% if can? :new, Discussion %>
   <% unless @project.archived %>
     <%= link_to (raw '<i class="fa fa-plus" aria-hidden="true">
       </i> New discussion'), 
-      new_project_discussion_path(@project) if can? :manage, Discussion %>
+      new_project_discussion_path(@project) %>
   <% end %>
 <% end %>

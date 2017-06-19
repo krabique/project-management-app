@@ -1,8 +1,8 @@
 class WikisController < ApplicationController
   load_and_authorize_resource :project
   load_and_authorize_resource :wiki, :through => :project
-  before_action :archived?
-  skip_before_action :archived?, only: [:show]
+  before_action :archived?, except: :show
+  
   
   def new
   end

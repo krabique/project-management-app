@@ -53,11 +53,11 @@ class DiscussionsController < ApplicationController
   end
   
   def update_discussion_transaction
-    Document.transaction do
-      @discussion.update!(discussion_params)
-      @discussion.update!(last_editor: current_user.id)
+    #Document.transaction do
+      @discussion.update!( discussion_params.merge(last_editor: current_user.id) ) # TODO
+      #@discussion.update!(last_editor: current_user.id)
       return true
-    end
+    #end
   end
   
   def safe_create_discussion

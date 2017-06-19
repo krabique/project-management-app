@@ -6,10 +6,10 @@
         <tr>
           <td>
             <% unless post.creator <= 0 %>
-              <%= image_tag(@users.find_by_id(post.creator).avatar.url(:thumb),
+              <%= image_tag(@discussion.user.avatar.url(:thumb),
                 :class => "user-thumb-image user-list") %>
-              <%= link_to @users.find_by_id(post.creator).name, 
-                @users.find_by_id(post.creator) %>
+              <%= link_to @discussion.user.name, 
+                @discussion.user %>
             <% else %>
               Unknown
             <% end %>
@@ -20,11 +20,6 @@
                 <%= markdown(post.body) %>
               </div>
             </div>
-            <% unless post.last_editor.nil? %>
-              <%= link_to @users.find_by_id(post.last_editor).name, 
-                @users.find_by_id(post.last_editor) %> 
-              edited at <%= post.updated_at %>
-            <% end %>
           </td>
           <td>
             <ul class="posts-controls">
@@ -52,12 +47,10 @@
   <h4 class="text-center">No posts!</h4>
 <% end %>
 
-<% if current_user.projects.find_by_id(@project.id) || 
-  current_user.manager_role %>
+<% if can? :new, Post %>
   <% unless @project.archived %>
     <h5>Add new post:</h5>
     <%= render 'posts/form', post: Post.new, project: @project, 
       discussion: @discussion %>
-    
   <% end %>
 <% end %>

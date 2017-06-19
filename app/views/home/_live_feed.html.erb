@@ -7,14 +7,14 @@
         <% @feeds.reverse_each do |feed| %>
           <div class="list-group-item">
             <% unless feed.body %>
-              <%= link_to @users.find_by_id(feed.user_id).name, 
-                @users.find_by_id(feed.user_id) %>&nbsp;has <%= feed.action %>d
-                &nbsp;<%= link_to @projects.find_by_id(feed.project).title, 
-                @projects.find_by_id(feed.project) %>&nbsp;at 
+              <%= link_to feed.user.name, 
+               feed.user %>&nbsp;has <%= feed.action %>d
+                &nbsp;<%= link_to  feed.project.title, 
+                feed.project %>&nbsp;at 
                 <%= feed.created_at %>
             <% else %>
-              <%= link_to @users.find_by_id(feed.user_id).name, 
-              @users.find_by_id(feed.user_id) %>&nbsp;has <%= feed.action %>ed: 
+              <%= link_to feed.user.name, 
+              feed.user %>&nbsp;has <%= feed.action %>ed: 
               "<%= feed.body %>" at <%= feed.created_at %>
             <% end %>
           </div>
