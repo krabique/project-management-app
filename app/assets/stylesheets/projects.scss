@@ -4,8 +4,8 @@
 
 .form-users-list {
   max-width: 30em;
-  max-height:150px;
-  overflow-y: scroll;
+  height: 10em;
+  overflow-y: auto;
 }
 
 ul.ui-autocomplete {

@@ -19,12 +19,15 @@
     value: project.tag_list.to_s %>
   <br>
   <%= f.label nil, "This project's users:" %>
+  
+  <input type="text" id="form-users-list-search" class="form-control"
+    placeholder="filter users">  
   <p>
     <div class="list-group form-users-list">
       <% User.all.each do |user| %>
         <div class="list-group-item">
           <%= check_box_tag "project[user_ids][]", user.id, 
-            project.users.include?(user) %>
+            project.users.include?(user), class: "form-users-list-item", id: user.name %>
           <%= user.name %>
         </div>
       <% end %>
