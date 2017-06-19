@@ -30,16 +30,20 @@ class ApplicationController < ActionController::Base
     feed.body = body
     
     if feed.save!
-      ActionCable.server.broadcast 'feed_channel',
-        user:     ( view_context.link_to User.find_by_id(feed.user_id).name,
-                  User.find_by_id(feed.user_id) ),
-        action:   feed.action,
-        project:  ( view_context.link_to Project.find_by_id(
-                  feed.project).title, 
-                  Project.find_by_id(feed.project) if feed.project),
-        time:     feed.created_at.to_s,
-        body:     feed.body
+      broadcast_feed(feed)
     end
+  end
+  
+  def broadcast_feed(feed)
+    ActionCable.server.broadcast 'feed_channel',
+      user:     ( view_context.link_to User.find_by_id(feed.user_id).name,
+                User.find_by_id(feed.user_id) ),
+      action:   feed.action,
+      project:  ( view_context.link_to Project.find_by_id(
+                feed.project).title, 
+                Project.find_by_id(feed.project) if feed.project),
+      time:     feed.created_at.to_s,
+      body:     feed.body    
   end
   
   private

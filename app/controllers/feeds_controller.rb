@@ -8,7 +8,8 @@ class FeedsController < ApplicationController
   def create
     @feed = Feed.new
     if safe_create_feed_post
-      create_feed('post', @feed.body)
+      #create_feed('post', @feed.body)
+      broadcast_feed(@feed)
       redirect_to root_path, notice: 'Feed post was successfully created.'
     else
       render :new
