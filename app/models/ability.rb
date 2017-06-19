@@ -54,11 +54,6 @@ class Ability
         can :manage, Wiki
         can [:new, :create], Post
         can [:edit, :update], Post.where(creator: user.id)
-        #can :update, Post.where(creator: user.id)
-        #user.projects.find_by_id(project_id).
-        #u.projects.find_by_id(8).discussions.find_by_id(3).posts.find_by_creator(u.id)
-        #user.projects.find_by_id(project_id).discussions.find_by_id(discussion_id).posts.find_by_creator(user.id)
-        
       end
     end
     
