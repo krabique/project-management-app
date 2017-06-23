@@ -9,7 +9,9 @@
   <%= cloudinary_js_config %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-
+  <% if current_user && current_user.dark_style %>
+    <%= stylesheet_link_tag 'dark', media: 'all' %>
+  <% end %>
 </head>
 
 <body>
