@@ -22,7 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if params[:dark_style] && !params[:name]
       resource.update_without_password(
         { "dark_style" => "#{params[:dark_style]}" })
-      redirect_to(:back)
+      redirect_back(fallback_location: root_path)
     else
       super
     end
