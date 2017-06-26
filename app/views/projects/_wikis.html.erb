@@ -1,4 +1,3 @@
-<% p "------start------ wiki-project-view --" %>
 <% unless @project.wikis.empty? %>
   <h3 class="text-center">This project's wikis</h3>
   <% unless @project.archived %>
@@ -51,4 +50,3 @@
       </i> New wiki'), new_project_wiki_path(@project) %>
   <% end %>
 <% end %>
-<% p "------finish----- wiki-project-view --" %>

@@ -78,9 +78,10 @@ class DocumentsController < ApplicationController
     end
   end
   
-  def destroy_document_transaction #TODO
+  def destroy_document_transaction
     cl_document_name = File.basename(@document.cloudinary_uri, ".*")
     cl_delete_hash = Cloudinary::Api.delete_resources(cl_document_name)
-    @document.destroy! if cl_delete_hash['deleted'][cl_document_name] == "deleted"
+    @document.destroy! if 
+      cl_delete_hash['deleted'][cl_document_name] == "deleted"
   end
 end
