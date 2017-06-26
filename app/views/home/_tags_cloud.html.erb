@@ -3,10 +3,9 @@
     <div class="panel-body">
       <h3 class="text-center">Tags Cloud</h3>
       <div id="tag_cloud">
-        <% tag_cloud @projects.tag_counts, 
-          %w[xs s m l xl] do |tag, css_class| %>
+        <% tag_cloud @tag_counts, %w[xs s m l xl] do |tag, css_class| %>
           <%= link_to tag.name, tag_path(tag.name), class: css_class %>
-        <% end %>
+        <% end %>          
       </div>
     </div>
   </div>

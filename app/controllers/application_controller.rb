@@ -51,5 +51,9 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||= Ability.new(current_user, params[:project_id])
   end
+
+  def set_tag_counts
+    @tag_counts = Project.all.tag_counts
+  end
   
 end

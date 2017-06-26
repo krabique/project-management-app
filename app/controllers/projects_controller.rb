@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
   load_and_authorize_resource
   before_action(only: [:update]) { archived? project_params[:archived] }
+  before_action :set_tag_counts
+  
 
   def new
   end
