@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     feed = Feed.new
     feed.user_id = current_user.id
     feed.action = action
-    feed.project = (@project.id if @project)
+    feed.project = @project
     feed.body = body
     
     if feed.save!
