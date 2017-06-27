@@ -48,11 +48,10 @@ class PostsController < ApplicationController
   def broadcast_create
     ActionCable.server.broadcast 'discussion_channel',
       body:  view_context.markdown(@post.body),
-      link_to_user: (view_context.link_to User.find_by_id(@post.creator).name, 
-              User.find_by_id(@post.creator)),
-      avatar: (view_context.image_tag(User.find_by_id(@post.creator).avatar.url(
-              :thumb), :class => "user-thumb-image user-list")),
-      creator_name: User.find_by_id(@post.creator).name,
+      link_to_user: (view_context.link_to @post.user.name, @post.user),
+      avatar: ( view_context.image_tag(@post.user.avatar.url(
+              :thumb), :class => "user-thumb-image user-list") ),
+      creator_name: @post.user.name,
       created_at: @post.created_at.to_s,
       discussion_id: @discussion.id,
       odd_or_even: @discussion.posts.count
@@ -74,7 +73,8 @@ class PostsController < ApplicationController
   
   def safe_create_post
     begin
-      @discussion.posts.create( post_params.merge(creator: current_user.id) )
+      @post = @discussion.posts.create!( post_params.merge(
+        creator: current_user.id) )
       return true
     rescue ActiveRecord::RecordInvalid
       return false
