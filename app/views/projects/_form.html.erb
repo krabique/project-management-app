@@ -27,7 +27,8 @@
       <% User.all.each do |user| %>
         <div class="list-group-item">
           <%= check_box_tag "project[user_ids][]", user.id, 
-            project.users.include?(user), class: "form-users-list-item", id: user.name %>
+            project.users.include?(user), class: "form-users-list-item",
+              id: user.name %>
           <%= user.name %>
         </div>
       <% end %>
