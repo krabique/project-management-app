@@ -63,34 +63,19 @@ class PostsController < ApplicationController
     params.require(:post).permit(:body)
   end
   
-  def update_post_transaction
-    Document.transaction do
-      @post.update!(post_params)
-      @post.update!(last_editor: current_user.id)
-      return true
-    end
-  end
-  
   def safe_update_post
     begin
-      update_post_transaction
+      @post.update!(post_params.merge(last_editor: current_user.id) )
+      return true
     rescue ActiveRecord::RecordInvalid
       return false
     end    
   end
   
-  def create_post_transaction
-    Post.transaction do
-      @post = @discussion.posts.new(post_params)
-      @post.save!
-      @post.update!(creator: current_user.id)
-      return true
-    end
-  end
-  
   def safe_create_post
     begin
-      create_post_transaction
+      @discussion.posts.create( post_params.merge(creator: current_user.id) )
+      return true
     rescue ActiveRecord::RecordInvalid
       return false
     end     

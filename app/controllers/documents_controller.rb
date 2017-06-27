@@ -52,12 +52,10 @@ class DocumentsController < ApplicationController
   
   def update_document_transaction
     begin
-      Document.transaction do
-        @document.update!(document_params)
-        @document.update!(last_editor: current_user.id)
-        return true
-      end
-    rescue ActiveRecord::RecordInvalid => e
+      @document.update!( document_params.merge(last_editor: 
+        current_user.id) )
+      return true
+    rescue ActiveRecord::RecordInvalid
       return false
     end
   end
@@ -72,13 +70,13 @@ class DocumentsController < ApplicationController
   
   def safe_destroy_document
     begin
-      destroy_document_transaction
+      destroy_document_action
     rescue Exception
       return false
     end
   end
   
-  def destroy_document_transaction
+  def destroy_document_action
     cl_document_name = File.basename(@document.cloudinary_uri, ".*")
     cl_delete_hash = Cloudinary::Api.delete_resources(cl_document_name)
     @document.destroy! if 

@@ -46,33 +46,19 @@ class WikisController < ApplicationController
   
   def safe_update_wiki
     begin
-      update_wiki_transaction
+      @wiki.update!( wiki_params.merge(last_editor: current_user.id) )
+      return true
     rescue ActiveRecord::RecordInvalid
       return false
-    end
-  end
-  
-  def update_wiki_transaction
-    Document.transaction do
-      @wiki.update!(wiki_params)
-      @wiki.update!(last_editor: current_user.id)
-      return true
     end
   end
   
   def safe_create_wiki
     begin
-      create_wiki_transaction
+      @project.wikis.create!(wiki_params.merge(creator: current_user.id) )
+      return true
     rescue ActiveRecord::RecordInvalid
       return false
-    end
-  end
-  
-  def create_wiki_transaction
-    Wiki.transaction do
-      @project.wikis.create!(wiki_params)
-                    .update!(creator: current_user.id)
-      return true
     end
   end
   

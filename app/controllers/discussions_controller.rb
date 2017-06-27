@@ -32,8 +32,7 @@ class DiscussionsController < ApplicationController
   end
   
   def destroy
-    @discussion = Discussion.find(params[:id])
-    @discussion.destroy
+    Discussion.find(params[:id]).destroy
     redirect_to @project
   end
   
@@ -46,31 +45,22 @@ class DiscussionsController < ApplicationController
   
   def safe_update_discussion
     begin
-      update_discussion_transaction
+      @discussion.update!( discussion_params.merge(last_editor: 
+        current_user.id) )
+      return true
     rescue ActiveRecord::RecordInvalid
       return false
     end    
   end
   
-  def update_discussion_transaction
-    @discussion.update!( discussion_params.merge(last_editor: current_user.id) )
-    return true
-  end
-  
   def safe_create_discussion
     begin
-      create_discussion_transaction
+      @project.discussions.create!(discussion_params.merge(
+        creator: current_user.id) )
+      return true
     rescue ActiveRecord::RecordInvalid
       return false
     end     
-  end
-  
-  def create_discussion_transaction
-    Discussion.transaction do
-      @project.discussions.create!(discussion_params)
-                          .update!(creator: current_user.id)
-      return true
-    end
   end
   
 end
