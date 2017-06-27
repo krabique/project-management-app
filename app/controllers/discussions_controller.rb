@@ -1,6 +1,6 @@
 class DiscussionsController < ApplicationController
   load_and_authorize_resource :project
-  load_and_authorize_resource :discussion, :through => :project
+  load_and_authorize_resource :discussion, through: :project
   before_action :archived?
   skip_before_action :archived?, only: [:show]
   
