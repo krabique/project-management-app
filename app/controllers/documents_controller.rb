@@ -70,7 +70,7 @@ class DocumentsController < ApplicationController
   def safe_destroy_document
     begin
       destroy_document_action
-    rescue Exception
+    rescue
       return false
     end
   end
