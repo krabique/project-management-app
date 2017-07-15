@@ -17,3 +17,5 @@
 .byebug_history
 
 /config/initializers/active_record_logger.rb
+
+.idea/
