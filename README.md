@@ -4,11 +4,11 @@ This app enables managers and developers to peacefully coexist, whilst still wor
 single app - with files in a cloud, wiki pages on markdown, and, of course, discussions (nothing, but a little drama). 
 Auto-updates and proper authorizations included.
 
-## Technology
+## Technology overview
 
 This app is built with ruby 2.4.1, rails 5.0.3 and utilizes Bootstrap 4 with FontAwesome icons for the web pages. 
 The layout is *almost* fully compatible with any screen size. Ajax and ActionCable are used for seamless changes on the
-pages, with a bit of CoffeeScript and jQuery applied to it.
+pages, with a bit of CoffeeScript and jQuery applied to it. MySQL stands for database.
  
 Some of the gems that were used:
 
@@ -83,14 +83,14 @@ Wiki pages are simply some info pages that support markdown and has WYSIWYG for 
 
 ### Discussions
 
-Discussions consist of posts users left in them. Sort of like forum threads. There is no need to refresh a discussion
+Discussions consist of posts that users left in them. Sort of like forum threads. There is no need to refresh a discussion
 page to see the new posts since they all have auto-updates enabled (via ActionCable).
 
 ![discussion](./examples/discussions_example.png)
 
 ### Live Feed
 
-There is a live feed pane on the main page, that shows some latest events that's been happening around the app, 
+There is a live feed pane on the main page that shows some latest events that's been happening around the app, 
 such as new projects, etc. A manager can also write a plain text post to feeds. Of course, it also auto-updates
  like a miracle! (via ActionCable - seem magical enough to me)
  
@@ -106,13 +106,14 @@ Anyone can use full-text or tags search with the appropriate intuitive GUI. The 
 ### Visual app styles
 
 Anyone can change their app's visual style preference to a darker one or a brighter one, by simply clicking at the
-appropriate link at the navbar.
+appropriate link at the navbar. (but the colors choice is too crappy to post a screenshot...)
 
 ### Other features
 
 - tags autocomplete
 - users filtering while adding or removing users to/from a project
 - pagination for all projects and searches
+- creator/last editor info in dropdowns for every wiki, document, discussion and discussions' post
 
 ## Authors
 
