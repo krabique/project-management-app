@@ -6,10 +6,10 @@
         <tr>
           <td>
             <% unless post.creator <= 0 %>
-              <%= image_tag(@discussion.user.avatar.url(:thumb),
+              <%= image_tag(post.user.avatar.url(:thumb),
                 :class => "user-thumb-image user-list") %>
-              <%= link_to @discussion.user.name, 
-                @discussion.user %>
+              <%= link_to post.user.name, 
+                post.user %>
             <% else %>
               Unknown
             <% end %>
