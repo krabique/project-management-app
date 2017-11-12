@@ -115,6 +115,10 @@ appropriate link at the navbar. (but the colors choice is too crappy to post a s
 - pagination for all projects and searches
 - creator/last editor info in dropdowns for every wiki, document, discussion and discussions' post
 
+## License
+
+MIT
+
 ## Authors
 
 * **Oleg Larkin** - *Initial work* - [krabique48](https://github.com/krabique48) (krabique48@gmail.com)
