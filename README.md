@@ -86,7 +86,8 @@ Wiki pages are simply some info pages that support markdown and has WYSIWYG for 
 Discussions consist of posts that users left in them. Sort of like forum threads. There is no need to refresh a discussion
 page to see the new posts since they all have auto-updates enabled (via ActionCable).
 
-![discussion](./examples/discussions_example.png)
+<!-- ![discussion](./examples/discussions_example.png) -->
+(*a ufo have stolen the picture! omg!*)
 
 ### Live Feed
 
