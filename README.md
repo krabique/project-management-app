@@ -52,7 +52,7 @@ An admin assigns users' roles via the admin panel.
 - **Admin**'s a God. Nuf' said. Motto: "I am the Alpha and the Omega".
 
 - **Manager** is someone who manages projects, obviously. They can do almost anything, except changing other users' 
-info. Motto: "Work, niggers, the sun is still high!"
+info. Motto: "Work, you monkeys, the sun is still high!"
 
 - **Developers** are the people who do the actual job, but have no rights except to work on a ~~cage~~ project they've
  been assigned to. Motto: "I live only to serve... I humbly obey..."
@@ -122,4 +122,4 @@ MIT
 
 ## Authors
 
-* **Oleg Larkin** - *Initial work* - [krabique48](https://github.com/krabique48) (krabique48@gmail.com)
+* **Oleg Larkin** - *Initial work* - [krabique](https://github.com/krabique) (krabique48@gmail.com)
